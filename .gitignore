@@ -17,3 +17,9 @@ slprj/
 
 # Session info
 # octave-workspace
+
+#Tex
+*.aux
+*.log
+*.out
+*auto/
