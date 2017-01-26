@@ -1,4 +1,4 @@
-function [] = denoising()
+function [out_img] = denoising()
     tic;
     img = imread('./data/barbara256.png');
 %     img = imresize(img,0.25);
@@ -12,7 +12,7 @@ function [] = denoising()
     
     patch_size = 8;
     A = kron(dctmtx(patch_size),dctmtx(patch_size));
-    alpha = max(eig(A'*A));
+    alpha = max(eig(A'*A)) + 1;
     lambda_cap = lambda * 2 * 100;
     out_img = zeros(size(img_noisy));
     number_mtx = zeros(size(img_noisy));
@@ -20,7 +20,7 @@ function [] = denoising()
         for c = cols
             patch_img = img_noisy(r:r+7,c:c+7);
             B = dct2(patch_img);
-            initial_theta = B(:);
+            initial_theta = zeros(size(B(:)));
             number_mtx(r:r+7,c:c+7) = number_mtx(r:r+7,c:c+7) + 1;
             denoised_theta = ista(patch_img(:),A,lambda_cap, alpha, initial_theta);
             denoised_img = A * denoised_theta;
