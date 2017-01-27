@@ -1,4 +1,4 @@
-function [] = deblur()
+function [Nit] = deblur()
     x = create_random_sparse_vector();
 %     x = zeros(1,100);
 %     x(8) = 1.4; x(28) = 1.3; x(32) = 1.5;x(68) = 2; x(88) = 1.5;
@@ -16,8 +16,8 @@ function [] = deblur()
     alpha = max(eig(H'*H));
     
 %     x_deblurred = ista(y,H,lambda,alpha,zeros(size(x)));
-%     [x_deblurred, J] = ista2(y,H,lambda,alpha,10000);
-    [x_deblurred, J] = ista(y,H,lambda,alpha,zeros(size(x))); 
+    [x_deblurred, J, Nit] = ista2(y,H,lambda,alpha,100);
+%     [x_deblurred, J] = ista(y,H,lambda,alpha,zeros(size(x))); 
     figure; plot(J);
 %     figure;stem(x);
     figure;stem(y);
