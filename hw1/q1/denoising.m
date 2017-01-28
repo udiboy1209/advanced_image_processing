@@ -12,7 +12,7 @@ function [out_img] = denoising()
     
     patch_size = 8;
     A = kron(dctmtx(patch_size),dctmtx(patch_size));
-    alpha = max(eig(A'*A)) + 1;
+    alpha = max(eig(A'*A));
     lambda_cap = lambda * 2 * 100;
     out_img = zeros(size(img_noisy));
     number_mtx = zeros(size(img_noisy));
