@@ -1,4 +1,4 @@
-function [variance_distribution] = all_patch_variance(img)
+function [variance_dist] = all_patch_variance(img)
     [m,n] = size(img);
     k = 0;
     variances = zeros(m-7, n-7);
@@ -11,8 +11,12 @@ function [variance_distribution] = all_patch_variance(img)
             variances(k) = var(patch_img);
         end
     end
-    variance_distribution = histogram(variances);
-    figure; stem(variances);
-    figure; stem(variance_distribution);
+%     variance_distribution = histogram(variances);
+    variance_dist = histcounts(variances);
+    figure;plot(variance_dist);
+%     v2 = histogram(variances);
+%     figure;plot(v2);
+%     figure; stem(variances);
+%     figure; stem(variance_distribution);
     
 end
