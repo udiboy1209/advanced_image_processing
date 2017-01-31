@@ -1,4 +1,4 @@
-function [] = measurement_matrix()
+function [out_img] = measurement_matrix()
     tic;
     img = double(imread('./data/barbara256.png'));
     [m,n] = size(img);
@@ -11,7 +11,7 @@ function [] = measurement_matrix()
     number_mtx = zeros(size(img));
     
     alpha = max(eig(A'*A));
-    lambda = 200;
+    lambda = 1;
     
     for r = 1:m-7
         for c = 1:n-7
@@ -29,8 +29,8 @@ function [] = measurement_matrix()
     end
     out_img = out_img./number_mtx;
     
-    diff_avg = mean(img(:)) - mean(out_img(:));
-    out_img = out_img + diff_avg;
+    %diff_avg = mean(img(:)) - mean(out_img(:));
+    %out_img = out_img + diff_avg;
     
     figure;
     imshow(uint8(img));

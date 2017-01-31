@@ -5,7 +5,7 @@ function [out_img] = denoising()
     img = double(img);
     [m,n] = size(img);
     img_noisy = img + randn(m)*10;
-    lambda = 1;
+    lambda = .5;
     
     rows = 1:m-7;
     cols = 1:n-7;

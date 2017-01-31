@@ -24,19 +24,24 @@ function [out_img] = phi_random_reconstruction()
             theta_i_reconstructed = ista(y_i,A,lambda,alpha, zeros(size(x_i)));
             x_i_reconstructed = U * theta_i_reconstructed;
             x_i_reconstructed = reshape(x_i_reconstructed,8,8);
-            out_img(row:row+7, col:col+7) = x_i_reconstructed;
+            out_img(row:row+7, col:col+7) =  out_img(row:row+7, col:col+7) + x_i_reconstructed;
         end
     end
 %     random_img = random_img./number_mtx;
     
     out_img = out_img./number_mtx;
-    
+    min1 = min(min(out_img(7:end-7,7:end-7)));
+    max1 = max(max(out_img(7:end-7,7:end-7)));
 %     out_img = (out_img - min(out_img(:)))/(max(out_img(:) - min(out_img(:))));
+    out_img = (out_img - min1)/(max1 -min1);
+    out_img = out_img * 255;
+    
+%     diff_avg = mean(x(:)) - mean(out_img(:));
+%     out_img = out_img + diff_avg;
     
     figure; imshow(uint8(x));
-    figure; imshow(out_img);
-%     figure; imshow(uint8(random_img));
-    
+    figure; imshow(uint8(out_img));
+
 
     toc;
 end
