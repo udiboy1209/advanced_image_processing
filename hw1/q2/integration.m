@@ -1,19 +1,19 @@
-dt = 10^-1;
-b = 10;
-t = dt:dt:sqrt(b); % 0 -> sqrt(b)
+dt = 10^-4;
+b = 0.14;
+t = dt:dt:b; % 0 -> sqrt(b)
 
-dI = 10^-2;
+dI = 10^-3;
 
-Ivals = 0:dI:10;
+Ivals = 0:dI:1;
 PI = zeros(size(Ivals));
 
 for i = 1:size(Ivals,2)
     I = Ivals(i);
     val = sum(exp(bsxfun(@rdivide,-I^2,(2*t)))./sqrt(t) * dt);
-    PI(i) = val/sqrt(2*pi)/sqrt(b);
+    PI(i) = val/sqrt(2*pi)/b;
 end
 
-intg = arrayfun(@(I) dct_distribution_uniform_var(0,sqrt(1000),10000,I), Ivals);
+%intg = arrayfun(@(I) dct_distribution_uniform_var(0,sqrt(1000),10000,I), Ivals);
 
 %figure;
 %plot(Ivals,[intg]);
