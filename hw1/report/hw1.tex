@@ -2,13 +2,15 @@
 \usepackage[a4paper, tmargin=1in, bmargin=1in]{geometry}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
-\usepackage{parskip}
+\usepackage[justification=centering]{caption}
+
+% \usepackage{parskip}
 \usepackage{pdflscape}
 \usepackage{listings}
 \usepackage{hyperref}
 \usepackage{caption}
 \usepackage{subcaption}
-
+\usepackage{float}
 
 \title{CS 754 : Advanced Image ProcessingAssignment 1}
 \author{Meet Udeshi - 14D070007\\
@@ -21,15 +23,18 @@
 
 \section*{Q1}
 \subsection*{A1.1}
+In the folder q1, run the file denoising.m to get the images.
 
 Parameters chosen:
-$$lambda = 0.5$$
-$$alpha = max(eig(A'*A))$$
+$$\lambda = 0.5$$
+$$\alpha = max(eig(A'*A))$$
+$$\sigma = 10$$
+$$\hat{\lambda} = \lambda * (2 * \sigma^2)$$
 
 To compensate for the different intensity of the input and output image we have added the difference of the DC coefficients of the input
 and output image and added it to the output image.
 
-\begin{figure}[h!]
+\begin{figure}[H]
   % \centering
   \begin{subfigure}[t]{0.32\textwidth}
     \centering
@@ -52,31 +57,84 @@ and output image and added it to the output image.
     \label{Fig: 1c}
   \end{subfigure}
 
-  \caption{Figures for Q1}
+  \caption{Figures for Q1a}
 \end{figure}
+\pagebreak
 
 \subsection*{A1.2}
+We have created $\phi$ as a random matrix whose entries are drawn iid from $\mathcal{N}(0,1)$.
+Parameters chosen :
+$$\lambda = 1$$
+$$\alpha = max(eig(A'*A))$$
 
-\begin{figure}[h!]
-  % \centering
+The resultant output image was converted from float to uint8, by first converting it into range of $[0,1]$ and then
+scaling by 255. This resulted in slight contrast stretching of the image.
+
+\begin{figure}[H]
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
     \includegraphics[scale=0.5]{images/original_image_barbara}
     \caption{Original Image Barbara}
     \label{Fig :1a}
   \end{subfigure}
-  % ~
+  ~
   \begin{subfigure}[t]{0.5\textwidth}
     \centering
     \includegraphics[scale=0.5]{images/phi_reconstructed_barbara}
     \caption{Reconstructed Image Barbara}
     \label{Fig :1b}
   \end{subfigure}
+  \caption{Figures for Q1b}
+\end{figure}
+\pagebreak
+\subsection*{A1.3}
+In the folder q1, run the file deblur.m to get the deblurred image.
+
+Parameters used:
+
+$$\lambda = 50$$
+$$\alpha = max(eig(A'*A))$$
+$$\sigma = 0.01 * ||x||_2$$
+$$\hat{\lambda} = \lambda * (2 * \sigma^2)$$
+\begin{figure}[H]
+  % \centering
+  \begin{subfigure}[H]{0.5\textwidth}
+    % \centering
+    \includegraphics[scale=0.4]{images/blurred_signal_with_noise}
+    \caption{Blurred Signal}
+    \label{Fig: 1a}
+  \end{subfigure}\\
+  \begin{subfigure}[H]{0.5\textwidth}
+    % \centering
+    \includegraphics[scale=0.4]{images/original_and_deblurred_comparison}
+    \caption{Deblurred Signal}
+    \label{Fig: 1b}
+  \end{subfigure}
+  \caption{Figure for Q1c}
+\end{figure}
+\pagebreak
+\section*{Q2}
+\subsection*{A2}
+In the folder q2, run the file integration.m to get the numerical solution for the case of uniform variance.
+Parameters chosen:
+$$a=0.005$$
+$$b=0.14$$
+$$dI = 10^{-3}$$
+\begin{figure}[h!]
+  % \centering
+  \begin{subfigure}[t]{0.5\textwidth}
+    \includegraphics[scale=0.4]{images/variance_distribution_d5}
+    \caption{Variance distribution}
+    \label{Fig :2a}
+  \end{subfigure}\\
+  \begin{subfigure}[t]{0.5\textwidth}
+    \includegraphics[scale=0.4]{images/uniform_var_gaussian_fit}
+    \caption{P(I) and Gaussian Fit}
+    \label{Fig :2b}
+  \end{subfigure}
   \caption{Figures for Q2}
 \end{figure}
-
-
-
+\pagebreak
 \section*{Q3}
 \subsection*{A3.1}
 Assuming the image is of size NxN, and there are M filters. From equation (6) we note that, there are 4 terms to be considered.
@@ -122,7 +180,7 @@ $$\lambda \sum_{i \in S_1,k} \rho(f_{i,k}\cdot I - f_{i,k}\cdot I_1)$$
 This can be reduced to
 $$\lambda \sum_{i \in S_1,k} \rho(f_{i,k}\cdot I_2)$$
 We have implicitly assumed that at points $S_1$ the gradient of $I_2$ is approximately zero (since the user will predominantly pick edges of $I_1$ and they are highly unlikely to coincide with the edges of $I_2$). Hence we expect this term to be even more sparse than the second term, which is $$\sum_{i,k} \rho(f_{i,k} \cdot I_2)$$
-Since we have seen Gaussian model doesn't even fit $$\sum_{i,k} \rho(f_{i,k} \cdot I_2)$$ It is definitely not expected to fit the sparser term (which is the third term). In fact we can use a sparser model (instead of current mixed Laplacian) but we definitely cannot use Gauusian likelihood.
+Since we have seen Gaussian model doesn't even fit $$\sum_{i,k} \rho(f_{i,k} \cdot I_2)$$ It is definitely not expected to fit the sparser term (which is the third term). In fact we can use a sparser model (instead of current mixed Laplacian) but we definitely cannot use Gausian likelihood.
 
 Similar argument can be provided for the fourth term. 
 

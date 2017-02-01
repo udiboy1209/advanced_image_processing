@@ -11,8 +11,8 @@ function [Nit] = deblur(x)
     
     H = convmtx(h',100); % create circulant matrix of kernel
 
-    lambda = 100;
-    lambda_cap = lambda*(0.01*mag_x)^2;
+    lambda = 50;
+    lambda_cap = lambda*2*(0.01*mag_x)^2;
     alpha = max(eig(H'*H));
     
     % returns deblurred signal and no. iterations to converge
