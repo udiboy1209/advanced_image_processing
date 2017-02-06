@@ -23,3 +23,6 @@ slprj/
 *.log
 *.out
 *auto/
+
+#Zip
+*.zip
