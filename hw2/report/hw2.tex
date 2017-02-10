@@ -1,0 +1,62 @@
+\documentclass{article}
+\usepackage[a4paper, tmargin=1in, bmargin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage[justification=centering]{caption}
+
+% \usepackage{parskip}
+\usepackage{pdflscape}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{enumerate}
+\usepackage{amsmath}
+
+\title{CS 754 : Advanced Image ProcessingAssignment 2}
+\author{Meet Udeshi - 14D070007\\
+  Arka Sadhu - 140070011\\
+}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section*{Q2}
+\subsection*{A2.3}
+We have the relation : $$E_u = \sum_{t=1}^TC_t \cdot F_t$$
+Consider $$E_1 = C_1 \cdot F_1$$ and suppose that we want to construct it as a matrix product, then we can write it as
+$$E_1 = \phi_1 f_1$$ where $\phi_1 = diag(C_1)$ and $f_1 = vec(F_1)$
+Hence $$E_u = [\phi_1 | \phi_2 |...| \phi_T] \begin{bmatrix}
+  f_1\\ f_2 \\....\\ f_T \end{bmatrix} $$
+Therefore $$x = \begin{bmatrix}
+  f_1\\ f_2 \\....\\ f_T \end{bmatrix}$$
+$$ y = vec(Eu)$$
+$$A = [\phi_1 | \phi_2 |...| \phi_T]$$
+
+
+
+
+\section*{Q3}
+\subsection*{A3}
+Coherence is defined as : $$\mu(\phi,\psi) = \sqrt(n)*\max_{i,j \in {0,1,..,n-1}} |\phi^{i^{t}}\psi_j|$$
+
+\begin{enumerate}[(a)]
+\item Upper Bound:
+  Consider a row of $\phi$ matrix to be exactly same as one of the columns of $\psi$ the inner product would be 1, because both matrices are unit normalized, and result in $\mu_{max}(\phi,\psi) = \sqrt(n)$.
+\item Lower Bound:
+  Let $g$ be a row of the $\phi$ matrix, which is unit normalized. $g$ can be written with basis vectors as columns of $\psi$. That is
+  $$g = \sum_{k=1}^{n}\alpha_k \psi_k$$
+  Also since $g$ is unit norm, $$\sum_{k=1}^n\alpha_k^2 = 1$$
+  When we take the inner product of $g$ with $\psi_k$, only one $\alpha$ will remain. Now consider the coherence of $g$ and $\psi$. Clearly
+  $$\mu(g,\psi) = \sqrt{n} * max(\alpha_j)_{j=1}^n$$ where $\alpha_j$ is corresponds to the jth coefficient. Now we also know that $$max(\alpha_j)_{j=1}^n \ge avg(\alpha_j)_{j=1}^n$$ and equality occurs when all $\alpha_j$ are equal. Hence to get the minimum coherence we need all $\alpha_j$ to be equal and using the previous constraint on unit norm we get $$\alpha_j = \frac{1}{\sqrt{n}}$$. This gives $$\mu_{min}(g,\psi) = 1$$
+  This is the bound for all rows, and hence we have obtained $$\mu_{min}(\phi,\psi) = 1$$
+\end{enumerate}
+
+\section*{Q4}
+\subsection*{A4}
+
+
+
+\end{document}
