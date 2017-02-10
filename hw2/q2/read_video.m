@@ -4,12 +4,14 @@ function [frames_out,H,W,T] = read_video()
     [vid,~] = mmread('../cars.avi',1:T);
     frames = vid.frames;
     
-    [H,W,~] = size(frames(1).cdata);
+    [H,~,~] = size(frames(1).cdata);
     
-    frames_out = zeros(H,W,T);
+    frames_out = zeros(120,240,T);
     
     for i=1:T
-        frames_out(:,:,i) = rgb2gray(frames(i).cdata);
+        frames_out(:,:,i) = rgb2gray(frames(i).cdata(H-119:H,1:240,:));
     end
+    H = 120;
+    W = 240;
     rmpath ./MMread;
 end
