@@ -1,4 +1,4 @@
-function [Eu,Ct_mat,T] = compute_coded_snapshot_with_noise()
+function [Eu,Ct_mat,T,sigma] = compute_coded_snapshot_with_noise()
     [frames_out,H,W,T] = read_video();
     Ct_vec = generate_random_code_pattern(H,W,T);
     Eu = zeros(H,W);
@@ -11,4 +11,8 @@ function [Eu,Ct_mat,T] = compute_coded_snapshot_with_noise()
     end
     
     Eu = Eu + randn(H,W)*sigma;
+    figure;
+    imshow(Eu,[]);
+    title('Noisy coded image');
+
 end

@@ -1,10 +1,11 @@
 function [all_frames] = vid_compress()
-    [Eu, Ct_mat, T] = compute_coded_snapshot_with_noise();
+    [Eu, Ct_mat, T,sigma] = compute_coded_snapshot_with_noise();
     [H,W] = size(Eu);
     
     psi = kron(dctmtx(8),dctmtx(8));
     all_frames = zeros(H,W,T);
     num_added = zeros(H,W);
+    eps = 8 * sigma;
     for row = 1:H-7
         tic;
         for col = 1:W-7
@@ -18,8 +19,9 @@ function [all_frames] = vid_compress()
                 ct_vec = ct_vec(:);
                 phi_t(:, (i-1)*64 + 1 : i*64) = diag(ct_vec) * psi;
             end
-            [theta_out] = omp_implement2(patch,phi_t);
-            
+%             [theta_out,it] = omp_implement2(patch,phi_t,eps);
+            patch_vec = patch(:);
+            [theta_out] = omp(phi_t,patch_vec,eps);
             for i = 1:T
                 theta_out_frame_i = theta_out((i-1) * 64+ 1: i*64);
 %                 new_theta_frame_i = reshape(theta_out_frame_i,[8,8]);

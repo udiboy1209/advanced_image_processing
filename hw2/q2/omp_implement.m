@@ -28,4 +28,5 @@ function [st,ti_out] = omp_implement(Eu,A)
     ti_out = Ti;
     st = s;
     
+    
 end
