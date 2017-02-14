@@ -27,11 +27,11 @@ supp = [];
 % pause(1);
 
 count = 0;
-while norm(r,2) > eps
+while norm(r,2)^2 > eps
     count = count + 1;
     % Update support
     t = (A' * r).^2 ./ normcolA(:).^2;
-    [~, ind] = max(t);
+    [~, ind] = max(abs(t));
     supp = [supp ind];
 
     % Update residual

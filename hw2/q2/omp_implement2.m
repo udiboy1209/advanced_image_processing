@@ -6,16 +6,16 @@ function [theta_out,iter] = omp_implement2(Eu,A, epsilon)
         norm_of_colA(1,i) = norm(A(:,i));
     end
     
-    epsilon1 = 1e-3;
+%     epsilon1 = 1e-4;
     
 %     s = zeros(n,1);
     theta_out = zeros(n,1);
     Ti = [];
     iter = 0;
     r = y;
-    while(norm(r,2) > epsilon1)
+    while(norm(r,2)^2 > epsilon)
         iter = iter + 1;
-        t = (A' * r).^2;
+        t = (A' * r);
         t = t./norm_of_colA(:).^2;
         [~,ind] = max(t);
         Ti = [Ti ind];

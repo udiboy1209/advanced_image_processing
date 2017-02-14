@@ -4,8 +4,8 @@ function [] = test_omp()
     phi_mtx = randn(32,64);
     x = double(img);
     x = x/255;
-    [m1,n1] = size(x);
-    x = x(1:4:m1,1:4:n1);
+%     [m1,n1] = size(x);
+%     x = x(1:4:m1,1:4:n1);
     [m,n] = size(x);
     
     U = kron(dctmtx(8),dctmtx(8));
@@ -19,6 +19,7 @@ function [] = test_omp()
     
     for row=1:m-7
         for col=1:n-7
+            tic;
             close all;
             x_i = x(row:row+7,col:col+7);
             number_mtx(row:row+7,col:col+7) = number_mtx(row:row+7,col:col+7) + 1;
@@ -26,19 +27,22 @@ function [] = test_omp()
             y_i = phi_mtx * x_i;
 %             theta_i_reconstructed = ista(y_i,A,lambda,alpha, zeros(size(x_i)),1);   
 %             [theta_i_reconstructed,iter] = omp_implement2(y_i,A,1e-3);
-            [theta_i_reconstructed] = omp(A,y_i,1e-3);
+            [theta_i_reconstructed] = omp(A,y_i,1e-4);
+%               [theta_i_reconstructed] = omp_fin(y_i,A,1e-4);
+%             [theta_i_reconstructed] = demo_omp(y_i,
             
             x_i_reconstructed = U * theta_i_reconstructed;
             x_i_reconstructed = reshape(x_i_reconstructed,8,8);
             out_img(row:row+7, col:col+7) =  out_img(row:row+7, col:col+7) + x_i_reconstructed;
-
+            
         end
         fprintf('Row : %d \n',row);
     end
     
     out_img = out_img./number_mtx;
+%     out_img = (out_img - min(out_img(:)))/(max(out_img(:)) - min(out_img(:)));
     figure; imshow(x,[]);
-    figure; imshow(out_img,[]);
+    figure; imshow(uint8(out_img*255),[]);
     toc;
     
 end

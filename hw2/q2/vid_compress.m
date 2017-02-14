@@ -5,7 +5,7 @@ function [all_frames] = vid_compress()
     psi = kron(dctmtx(8),dctmtx(8));
     all_frames = zeros(H,W,T);
     num_added = zeros(H,W);
-    eps = 8 * sigma;
+    eps =  64* sigma^2;
     for row = 1:H-7
         tic;
         for col = 1:W-7

@@ -1,11 +1,11 @@
-[Eu,Ct_mat,T] = compute_coded_snapshot_with_noise();
+[Eu,Ct_mat,T,sigma] = compute_coded_snapshot_with_noise();
 figure;imshow(Eu,[]);
 [H,W] = size(Eu);
 
 Psi = kron(dctmtx(8),dctmtx(8));
 out_vid = zeros(H,W,T);
 num_added = zeros(H,W);
-
+eps = 64*sigma^2;
 for i = 1:H-7
     tic;
     for j = 1:W-7
@@ -19,7 +19,8 @@ for i = 1:H-7
 %         A_unit_norm = normc(A);
 
 %         [st,ti_out] = omp_implement(patch,A_unit_norm);
-        [decoded_patch] = omp_implement2(patch,A);
+%         [decoded_patch] = omp_implement2(patch,A);
+        [decoded_patch] = omp(A,patch(:),eps);
 %         decoded_patch = zeros(64*T,1);
 %         Indices of st and ti should match because
 %         A_ti * st = y
