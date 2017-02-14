@@ -14,6 +14,8 @@
 \usepackage{enumerate}
 \usepackage{amsmath}
 
+\setlength{\parindent}{0pt}
+
 \title{CS 754 : Advanced Image ProcessingAssignment 2}
 \author{Meet Udeshi - 14D070007\\
   Arka Sadhu - 140070011\\
@@ -22,6 +24,86 @@
 
 \begin{document}
 \maketitle
+
+\section*{Q1}
+\subsection*{A1.1}
+
+$$ y = \Phi x, y\in \text{I\!R}^{m}$$
+
+If $m=1$ then $y$ is a single value. Assume $x_i\neq 0$ for some $i \in \{1,...,n\}$
+then $y = \Phi_i x_i$.
+Consider some other $x'$ which has $j^{\text{th}}$ element non-zero, $j\neq i$.
+If $\Phi_j x'_j = \Phi_i x_i$, then $y=\Phi x'$ is also satisfied. We can find
+such a $x'$ for all $j\neq i$ where $x'_j = \Phi_i/\Phi_j x_i$.
+Hence there is no unique solution for this equation, and we cannot uniquely determine $x$ from
+$y$.
+\\
+\\
+For the case where we know the index of the non-zero element in $x$, we have been given
+$i$, and no other $j\neq i$ will satisfy the equation, leaving behind only one solution for $x$. Hence now we can uniquely determine $x$ from $y$.
+
+\subsection*{A1.2}
+
+If $m=2$, then $y$ is a 2D vector. Assuming $i$ is the index of non-zero element in
+$x$
+
+$$ y = \left[ 
+            \begin{array}{c}
+                \Phi_{1i}x_i\\
+                \Phi_{2i}x_i
+            \end{array} 
+       \right] 
+$$
+
+We can say that $y$ is the 2D column vector $\Phi_i$ scaled by $x_i$. Assume no two columns
+of $\Phi$ are parallel to each other in 2D space. Then we can say that we will find only
+one unique $i$ for which the equation holds. This is because if $y \| \Phi_i$ and
+$y \| \Phi_j$, $i\neq j$ then $\Phi_i \| \Phi_j$, which is contrary to our assumption.
+\\
+\\
+If the assumption holds for some $\Phi$, we can obtain $i$ by calculating
+normalised dot product of $y$ with every column $\Phi_i$, and whichever $i$ gives
+ $\frac{y\cdot\Phi_i}{|y||\Phi_i|} = 1$, we can then use it to calculate $x_i$ by
+
+$$x_i = |y|/|\Phi_i| $$
+
+If there are two or more such $i$, we can say that our assumption doesn't hold on $\Phi$ and
+no unique solution can be found.
+
+\subsection*{A1.3}
+
+For $m=3$, $y$ is a 3D vector which can be represented as the linear combination
+of two columns of $\Phi$. Take $i$ and $j$ to be the two indices of $x$ which are
+non-zero.
+
+$$ y = \Phi_i x_i + \Phi_j x_j $$
+
+We can see that $y$ in 3D space will lie in the 2D plane defined by $\Phi_i$ and
+$\Phi_j$. So to find $x$ given $y$, we need to find two columns of $\Phi$ which form
+$\{\Phi_i,\Phi_j,y\}$ as a set of coplanar 3D vectors. Thus we need to find $i,j$ s.t.
+
+$$ \frac{y\times\Phi_i}{|y||\Phi_i|} = \frac{y\times\Phi_j}{|y||\Phi_j|} $$
+
+We will be able to find a unique pair of $i,j$ iff no three columns of $\Phi$ are coplanar
+in 3D.
+\\
+\\
+Algorithm:
+\begin{enumerate}
+    \item{Create a binary search tree to add normalised cross products}
+    \item{Loop through the columns of $\Phi$ and for every $\Phi_i$
+    \begin{enumerate}
+        \item{Calculate normalised cross product $\hat{n_i} =  \frac{y\times\Phi_i}{|y||\Phi_i|}$}
+        \item{Search for $\hat{n_i}$ in the tree and return both indices,
+            current index and matched index if found. Break the loop.}
+        \item{If not found, add $\hat{n_i}$ to the tree.}
+    \end{enumerate}
+    }
+    \item{Using the two indices we need to solve for $x_i$ and $x_j$ using 
+          $$y = (\Phi_i \Phi_j)\left(\begin{array}{c} x_i\\ x_j \end{array}\right) $$
+          This is an over-determined system (three equations two variables)
+          and we can use inverse to find a solution (by discarding one equation).}
+\end{enumerate}
 
 \section*{Q2}
 \subsection*{A2.3}
