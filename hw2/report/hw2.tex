@@ -105,6 +105,15 @@ Algorithm:
           and we can use inverse to find a solution (by discarding one equation).}
 \end{enumerate}
 
+\subsection*{A1.4}
+For $m=4$, we proceed in the same way as above. The only change is that now, $y$ lies in the 2d column subspace of
+two columns of $\phi$. So we will be able to find $x$ uniquely iff no columns of $\phi$ are coplanar in a 2d plane
+defined in $R^4$
+Since we. cannot take cross product in 4D space, we proceed differently. For every $(i,j)$ pair, we make a matrix say $B$,
+whose columns are $\phi_i$ and $\phi_j$. Now we equate $Bx_1 = y$ where $x_1 = [\alpha | \beta]^t$. Now we use gaussian elimination.
+If we get last two rows as 0 in both $B$ as well as $y$, then we have obtained the solution required. $x$ will have non-zero elements
+at indices $i,j$ and the value would be $\alpha$ and $\beta$
+
 \section*{Q2}
 \subsection*{A2.3}
 We have the relation : $$E_u = \sum_{t=1}^TC_t \cdot F_t$$
@@ -138,7 +147,31 @@ Coherence is defined as : $$\mu(\phi,\psi) = \sqrt(n)*\max_{i,j \in {0,1,..,n-1}
 
 \section*{Q4}
 \subsection*{A4}
+We note that $A$ is a matrix with unit-normalized columns. Now consider a vector $\theta$ which is $S$-sparse, and let $s$ be the support
+of the vector $\theta$. Clearly,
+$$||A\theta||^2 = ||A_s\theta_s||^2$$
+where $A_s$ is constructed by taking only those columns of $A$ corresponding to which $\theta$ is non-zero. The above statement is true
+because all other terms of $A\theta$ would be $0$ and wouldn't contribute to the norm.
+The maximum and minimum value of $||A_s\theta_s||^2$ will be determined by the largest and smallest singular values. And singular values are basically eigenvalues of the matrix $A_s^tA_s$. Therefore,
+$$\lambda_{min}||\theta_s||^2 \leq ||A_s\theta_s||^2 \leq \lambda_{max}||\theta_s||^2$$ 
+where $\lambda_{min}$ and $\lambda_{max}$ are the minimum and maximum eigenvalues of the matix  $A_s^tA_s$.
 
+By Gershgorin's Theorem we have:
+$$B_{ii} - r_i < \lambda < B_{ii} + r_i$$ where $B_{ii}$ is the $i^{th}$ diagonal element, and $r_i$ is the sum of absolute values of the off-diagonal elements.\\
+Here we consider $B = A_s^tA_s$. Since we have assumed columns of $A$ are unit-normalized, hence the diagonal elements of the matrix $B$
+will be $1$. Also we consider the definition of mutual coherence $\mu$
+$$\mu(A) = max_{i,j,i \neq j}|A_i \cdot A_j|$$
+By this definition it is easy to see that $$r_i \leq \mu * (S-1)$$ because $r_i$ is the sum of absolute off-diagonal elements of the matrix $A_s^tA_s$ and each such element would be less than $\mu$ and at most there can be $S-1$ terms. 
+Also by RIP definition we have $$\delta_s = max(\lambda_{max} -1 , 1-\lambda_{min})$$\\
+If the first term is larger, we have $\delta_s = \lambda_{max} - 1$.
+$$\delta_s < B_{ii} + r_i - 1$$
+$$\delta_s < 1 + (S-1)\mu -1$$
+$$\delta_s < (S-1)\mu$$
+If the second term is larger, we have $\delta_s = 1 - \lambda_{min}$
+$$\delta_s < 1 - (B_{ii} - r_i)$$
+$$\delta_s < 1 - (1 - (S-1)\mu)$$
+$$\delta_s < (S-1)\mu$$
 
+Hence in both cases we have proved that $\delta_s < (S-1)\mu$
 
 \end{document}
