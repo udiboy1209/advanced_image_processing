@@ -48,11 +48,11 @@ If $m=2$, then $y$ is a 2D vector. Assuming $i$ is the index of non-zero element
 $x$
 
 $$ y = \left[ 
-            \begin{array}{c}
-                \Phi_{1i}x_i\\
-                \Phi_{2i}x_i
-            \end{array} 
-       \right] 
+  \begin{array}{c}
+    \Phi_{1i}x_i\\
+    \Phi_{2i}x_i
+  \end{array} 
+\right] 
 $$
 
 We can say that $y$ is the 2D column vector $\Phi_i$ scaled by $x_i$. Assume no two columns
@@ -63,7 +63,7 @@ $y \| \Phi_j$, $i\neq j$ then $\Phi_i \| \Phi_j$, which is contrary to our assum
 \\
 If the assumption holds for some $\Phi$, we can obtain $i$ by calculating
 normalised dot product of $y$ with every column $\Phi_i$, and whichever $i$ gives
- $\frac{y\cdot\Phi_i}{|y||\Phi_i|} = 1$, we can then use it to calculate $x_i$ by
+$\frac{y\cdot\Phi_i}{|y||\Phi_i|} = 1$, we can then use it to calculate $x_i$ by
 
 $$x_i = |y|/|\Phi_i| $$
 
@@ -90,19 +90,19 @@ in 3D.
 \\
 Algorithm:
 \begin{enumerate}
-    \item{Create a binary search tree to add normalised cross products}
-    \item{Loop through the columns of $\Phi$ and for every $\Phi_i$
+\item{Create a binary search tree to add normalised cross products}
+\item{Loop through the columns of $\Phi$ and for every $\Phi_i$
     \begin{enumerate}
-        \item{Calculate normalised cross product $\hat{n_i} =  \frac{y\times\Phi_i}{|y||\Phi_i|}$}
-        \item{Search for $\hat{n_i}$ in the tree and return both indices,
-            current index and matched index if found. Break the loop.}
-        \item{If not found, add $\hat{n_i}$ to the tree.}
+    \item{Calculate normalised cross product $\hat{n_i} =  \frac{y\times\Phi_i}{|y||\Phi_i|}$}
+    \item{Search for $\hat{n_i}$ in the tree and return both indices,
+        current index and matched index if found. Break the loop.}
+    \item{If not found, add $\hat{n_i}$ to the tree.}
     \end{enumerate}
-    }
-    \item{Using the two indices we need to solve for $x_i$ and $x_j$ using 
-          $$y = (\Phi_i \Phi_j)\left(\begin{array}{c} x_i\\ x_j \end{array}\right) $$
-          This is an over-determined system (three equations two variables)
-          and we can use inverse to find a solution (by discarding one equation).}
+  }
+\item{Using the two indices we need to solve for $x_i$ and $x_j$ using 
+    $$y = (\Phi_i \Phi_j)\left(\begin{array}{c} x_i\\ x_j \end{array}\right) $$
+    This is an over-determined system (three equations two variables)
+    and we can use inverse to find a solution (by discarding one equation).}
 \end{enumerate}
 
 \subsection*{A1.4}
@@ -115,7 +115,8 @@ If we get last two rows as 0 in both $B$ as well as $y$, then we have obtained t
 at indices $i,j$ and the value would be $\alpha$ and $\beta$
 
 \section*{Q2}
-\subsection*{A2.3}
+\subsection*{A2.1}
+
 We have the relation : $$E_u = \sum_{t=1}^TC_t \cdot F_t$$
 Consider $$E_1 = C_1 \cdot F_1$$ and suppose that we want to construct it as a matrix product, then we can write it as
 $$E_1 = \phi_1 f_1$$ where $\phi_1 = diag(C_1)$ and $f_1 = vec(F_1)$
@@ -125,6 +126,79 @@ Therefore $$x = \begin{bmatrix}
   f_1\\ f_2 \\....\\ f_T \end{bmatrix}$$
 $$ y = vec(Eu)$$
 $$A = [\phi_1 | \phi_2 |...| \phi_T]$$
+
+\subsection*{A2.2}
+For T=3
+\begin{figure}[H]
+  \centering
+
+  \begin{subfigure}[t]{1.0\linewidth}
+    \centering
+    \includegraphics[scale=0.25]{images/noisy_coded_img}
+    \caption{Noisy Coded Image}
+  \end{subfigure}
+  
+  
+  \begin{subfigure}[t]{1.0\linewidth}
+    \centering
+    \includegraphics[scale=0.5]{images/frame_1}
+    \caption{Frame 1: rmse=9.1962}
+  \end{subfigure}
+  
+  \begin{subfigure}[t]{1.0\linewidth}
+    \centering
+    \includegraphics[scale=0.5]{images/frame_2}
+    \caption{Frame 2: rmse=9.0213}
+  \end{subfigure}
+  
+  \begin{subfigure}[t]{1.0\linewidth}
+    \centering
+    \includegraphics[scale=0.5]{images/frame_2}
+    \caption{Frame 3: rmse=9.2965}
+  \end{subfigure}
+  
+  \caption{T = 3}
+  \label{fig:1}
+\end{figure}
+\subsection*{A2.3}
+For T=4
+\begin{figure}[H]
+  \centering
+
+  
+  \begin{subfigure}[t]{1.0\linewidth}
+    \centering
+    \includegraphics[scale=0.25]{images/noisy_coded_img_t4}
+    \caption{Noisy Coded Image}
+  \end{subfigure}
+  
+  \begin{subfigure}[t]{1.0\linewidth}
+    \centering
+    \includegraphics[scale=0.5]{images/frame_1_t4}
+    \caption{Frame 1: rmse=11.1252}
+  \end{subfigure}
+
+  \begin{subfigure}[t]{1.0\linewidth}
+    \centering
+    \includegraphics[scale=0.5]{images/frame_2_t4}
+    \caption{Frame 2: rmse=10.5523}
+  \end{subfigure}
+
+  \begin{subfigure}[t]{1.0\linewidth}
+    \centering
+    \includegraphics[scale=0.5]{images/frame_3_t4}
+    \caption{Frame 3: rmse=10.5981}
+  \end{subfigure}
+
+  \begin{subfigure}[t]{1.0\linewidth}
+    \centering
+    \includegraphics[scale=0.5]{images/frame_4_t4}
+    \caption{Frame 4: rmse=10.8642}
+  \end{subfigure}
+  \caption{T = 4}
+\end{figure}
+
+
 
 
 
