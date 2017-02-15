@@ -1,4 +1,4 @@
-function [Eu,Ct_mat,T,sigma] = compute_coded_snapshot_with_noise()
+function [Eu,Ct_mat,T,sigma, frames_out] = compute_coded_snapshot_with_noise()
     [frames_out,H,W,T] = read_video();
     Ct_vec = generate_random_code_pattern(H,W,T);
     Eu = zeros(H,W);

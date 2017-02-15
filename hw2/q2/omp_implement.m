@@ -1,32 +1,36 @@
-function [st,ti_out] = omp_implement(Eu,A)
-    % [H,W] = size(Eu);
-    %[Eu,Ct_vec] = compute_coded_snapshot_with_noise();
-    pnorm_r = 0;
-    epsilon = 10^-3;
-    % Consider y = A(PSI)(THETA)
-    s = 0;
+function [theta,st,ti_out] = omp_implement(A,Eu,epsilon)
     % Vectorizes in column vector
     y = Eu(:);
     r = y;
     
     Ti = [];
+    [M,N] = size(A);
     
-    % A = zeros(W*H,W*H*T);
-    % for i = 1:T
-    %    A((i-1)*W*H + 1:i*W*H,:) = diag(Ct_vec((i-1)*W*H + 1:i*W*H)); 
-    % end
+    theta = zeros(N,1);
     
-    while(abs(norm(r)-pnorm_r) > epsilon)
-        pnorm_r = norm(r);
-        [~,j] = choose_max_aj_similar(r,A);
-        Ti = union(Ti,j);
-        At = A(:,Ti);
-        s = pinv(At) * y;
+    % calculate norm2 of columns of A for normalisation
+    normcolA = zeros(1,N);
+    for j = 1:N
+        normcolA(1,j) = norm(A(:,j),2);
+    end 
+    
+    while(norm(r) > epsilon)
         
+        % Normalised correlation of each col of A with r
+        rAnorm = abs((r'*A) ./ normcolA);
+        [~, j] = max(rAnorm);
+        
+        % add index to list
+        Ti = [Ti j];
+        
+        At = A(:,Ti);
+        s = (At' * At) \ At' * y;
+        
+        % new residue
         r = y - At*s;
     end
+    
     ti_out = Ti;
     st = s;
-    
-    
+    theta(ti_out) = st;
 end
