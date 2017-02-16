@@ -1,4 +1,4 @@
-function [all_frames] = vid_compress()
+function [all_frames,rmse_vec] = vid_compress()
     [Eu, Ct_mat, T,sigma, original_frames] = compute_coded_snapshot_with_noise();
     [H,W] = size(Eu);
     
@@ -42,16 +42,19 @@ function [all_frames] = vid_compress()
     
     % Place original and decoded side by side
     save_img = zeros(H,W*2);
-    
+%     img_temp = zeros(H,W);
+    rmse_vec = zeros(1,T);
     figure; title('Decoded frames vs. Original frames');
     for i=1:T
         all_frames(:,:,i) = all_frames(:,:,i)./num_added;
         save_img(:,1:W) = all_frames(:,:,i);
+%         img_temp = all_frames(:,:,i);
+%         rmse_vec(i) = rmse(all_frames(:,:,i),original_frames(:,:,i));
         save_img(:,W+1:end) = original_frames(:,:,i);
         
         fname = sprintf('output/frame_%d.png',i);
         imwrite(uint8(save_img),fname,'PNG');
-        
+        rmse_vec(i) = rmse(uint8(save_img(:,1:W)),uint8(save_img(:,W+1:end)));
         subplot(T,1,i);
         imshow(save_img,[]);
     end
