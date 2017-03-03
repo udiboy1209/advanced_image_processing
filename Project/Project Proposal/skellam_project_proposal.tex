@@ -1,0 +1,28 @@
+\documentclass{article}
+\usepackage[a4paper, tmargin=1in, bmargin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage[justification=centering]{caption}
+
+% \usepackage{parskip}
+\usepackage{pdflscape}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{float}
+
+\title{CS 754 : Project Proposal}
+\author{Meet Udeshi - 14D070007\\
+  Arka Sadhu - 140070011\\
+}
+\date{\today}
+
+\begin{document}
+\maketitle
+\section*{Topic}
+We will implement the paper Difference-Based Image Noise Modeling Using Skellam Distribution. Conventionally image noise is modelled as $\mathcal{N}(\mu,\sigma^2)$ where $\mathcal{N}$ is assumed to zero mean Gaussian or zero mean Poisson. Following the footprints of the paper, we choose to model the difference of the intensities between two images to find scene correspondence, i.e. whether or not two pixels correspond to the same scene radiance. The difference of two poisson is a Skellam Distribution, which will be used to find the scene correspondence. As a further extension, we wish to apply this to the Rice Single Pixel Camera, whose noise model will in effect be a Skellam Distribution.
+
+\section*{Datasets}
+We will use raw camera data which are not demosaicked. We will acquire a DSLR and click photos with it to get raw image data of the same scene with one or two objects moving, and get the background subtraction. 
+\end{document}
