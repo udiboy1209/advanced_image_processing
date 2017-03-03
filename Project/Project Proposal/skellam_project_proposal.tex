@@ -21,8 +21,12 @@
 \begin{document}
 \maketitle
 \section*{Topic}
-We will implement the paper Difference-Based Image Noise Modeling Using Skellam Distribution. Conventionally image noise is modelled as $\mathcal{N}(\mu,\sigma^2)$ where $\mathcal{N}$ is assumed to zero mean Gaussian or zero mean Poisson. Following the footprints of the paper, we choose to model the difference of the intensities between two images to find scene correspondence, i.e. whether or not two pixels correspond to the same scene radiance. The difference of two poisson is a Skellam Distribution, which will be used to find the scene correspondence. As a further extension, we wish to apply this to the Rice Single Pixel Camera, whose noise model will in effect be a Skellam Distribution.
+We will implement the paper Difference-Based Image Noise Modeling Using Skellam Distribution. Conventionally image noise is modelled as $\mathcal{N}(\mu,\sigma^2)$ where $\mathcal{N}$ is assumed to zero mean Gaussian or zero mean Poisson. Following the footprints of the paper, we choose to model the difference of the intensities between two images to find scene correspondence, i.e. whether or not two pixels correspond to the same scene radiance. The difference of two poisson is a Skellam Distribution, which will be used to find the scene correspondence. As a further extension, we wish to apply this to the Rice Single Pixel Camera. In hardware it is easy to realize +1 and 0, but such a random matrix usually doesn't follow the RIP, and we invert the original $\phi$ matrix, and get two such measurements and take their difference. For a single image, the noise model will be Poisson but for difference of two images it will be Skellam.
 
 \section*{Datasets}
-We will use raw camera data which are not demosaicked. We will acquire a DSLR and click photos with it to get raw image data of the same scene with one or two objects moving, and get the background subtraction. 
+\begin{itemize}
+\item We will use raw camera data which are not demosaicked. We will acquire a DSLR and click photos with it to get raw image data of the same scene with one or two objects moving, and get the background subtraction.
+\item We will also try our algorithm on a CMU dataset for Background Modelling.
+\end{itemize}
+
 \end{document}
