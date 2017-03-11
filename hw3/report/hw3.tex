@@ -1,0 +1,151 @@
+\documentclass{article}
+\usepackage[a4paper, tmargin=1in, bmargin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage[justification=centering]{caption}
+
+% \usepackage{parskip}
+\usepackage{pdflscape}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{enumerate}
+\usepackage{amsmath}
+
+\setlength{\parindent}{0pt}
+
+\title{CS 754 : Advanced Image ProcessingAssignment 2}
+\author{Meet Udeshi - 14D070007\\
+  Arka Sadhu - 140070011\\
+}
+\date{\today}
+
+\newcommand{\lone}[1]{
+  ||#1||_{l_1}
+}
+\newcommand{\ltwo}[1]{
+  ||#1||_{l_2}
+}
+\newcommand{\linf}[1]{
+  ||#1||_{l_\infty}
+}
+\newcommand{\htj}[1]{
+  h_{T_{#1}}
+}
+
+\newcommand{\htc}[1]{
+  h_{{#1}^c}
+}
+
+\newcommand{\hto}[1]{
+  h_{#1}
+}
+
+\begin{document}
+\maketitle
+\section*{Q1}
+\subsection*{A1.1}
+Need to show :
+\begin{equation}\label{eq:1}
+  \ltwo{h_{T_j}} \le s^{1/2} \linf{h_{T_j}}
+\end{equation}
+Equivalently we need to show :
+$$\ltwo{A} \le s^{1/2} \linf{A}$$
+where $A$ is a s-sparse vector.
+Therefore
+$$\ltwo{A} = \sqrt{\sum_{i}a_i^2} \le \sqrt{\sum_i max(a_i)^2} \le s^{1/2}max(a_i) = \linf{A}$$
+The $s^{1/2}$ term comes from the fact that A is s-sparse matrix, and hence there will be at most s non-zero elements.
+
+\subsection*{A1.2}
+Need to show :
+\begin{equation}\label{eq:2}
+  s^{1/2}\linf{h_{T_j}} \le s^{-1/2}\lone{\htj{j-1}}
+\end{equation}
+
+for all $j \ge 2$\\\\
+Equivalently we need to show :
+$$s\linf{\htj{j}} \le \lone{\htj{j-1}}$$
+From the definition of $T_j$ it follows for $j \ge 2$ that all elements of $\htj{j}$ will be less than the smallest non-zero element of
+$\htj{j-1}$. Also both $\htj{j}$ and $\htj{j-1}$ are s-sparse matrix, hence it clearly follows that
+$$s \linf{\htj{j}} = s*max(\htj{j}) \le \sum_i |\htj{j-1}| = \lone{\htj{j-1}} $$
+
+\subsection*{A1.3}
+Need to show :
+\begin{equation}\label{eq:3}
+  \sum_{j \ge 2} \ltwo{\htj{j}} \le s^{-1/2}(\lone{\htj{1}} + \lone{\htj{2}} + ...)
+\end{equation}
+
+This follows directly from \ref{eq:1} and \ref{eq:2}.
+$$\ltwo{\htj{j}} \le s^{-1/2} \lone{\htj{j-1}}$$
+for all $j \ge 2$
+Now summing over all $j \ge 2$ we get
+$$\sum_{j \ge 2} \ltwo{\htj{j}} \le s^{-1/2}(\lone{\htj{1}} + \lone{\htj{2}} + ...)$$
+
+\subsection*{A1.4}??
+
+\subsection*{A1.5}
+Need to show:
+\begin{equation}
+  \label{eq:5}
+  \ltwo{\htc{(T_0 \cup T_1)}} = \ltwo{\sum_{j \ge 2}\htj{j}}
+\end{equation}
+
+We note that $$\htc{(T_0 \cup T_1)} = h - \hto{T_0} - \hto{T_1} = \hto{T_2} + \hto{T_3} + ... = \sum_{j \ge 2} \hto{T_j}$$
+
+And hence \ref{eq:5} follows directly.
+
+\subsection*{A1.6}
+Need to show:
+\begin{equation}
+  \label{eq:6}
+  \ltwo{\sum_{j \ge 2}{\htj{j}}} \le \sum_{j \ge 2} \ltwo{\htj{j}}
+\end{equation}
+
+This is simple extension of triangle inequality, which states that
+$$|a+b| \le |a| + |b|$$
+For n vectors it is simply
+$$|a_1 + a_2 + a_3 +... +a_n| \le |a_1| + |a_2| + |a_3| + ... + |a_n| $$
+And hence \ref{eq:6} follows directly
+
+\subsection*{A1.7}
+Need to show:
+\begin{equation}
+  \label{eq:7}
+  \sum_{j \ge 2} \ltwo{\htj{j}} \le s^{-1/2}\lone{\htc{T_0}}
+\end{equation}
+
+Same proof as A1.4
+
+\subsection*{A1.8}
+???
+Need to show:
+\begin{equation}
+  \label{eq:8}
+  \lone{x} \ge \lone{x+h} \ge \lone{x_{T_0}} - \lone{\hto{T_0}} + \lone{\htc{T_0}} - \lone{x_{T_0^c}}
+\end{equation}
+
+\subsection*{A1.9}
+Need to show:
+\begin{equation}
+  \label{eq:9}
+  \ltwo{\htc{T_0}} \le \lone{\hto{T_0}} + 2\lone{x_{T_0^c}}
+\end{equation}
+We can rearrange \ref{eq:8} to have
+$$\lone{\htc{T_0}} \le \lone{x} - \lone{x_{T_0}} + \lone{\hto{T_0}} + \lone{x_{T_0^c}}$$
+We note that
+$$\lone{x} - \lone{x_{T_0}} \le \lone{x - x_{T_0}} = \lone{x_{T_0^c}}$$
+Therefore
+$$\lone{\htc{T_0}} \le \lone{x_{T_0^c}} + \lone{\hto{T_0}} + \lone{x_{T_0^c}} = \lone{\hto{T_0}} + 2\lone{x_{T_0^c}}$$
+
+\subsection*{A1.10}
+Need to show:
+\begin{equation}
+  \label{eq:10}
+  
+\end{equation}
+
+
+
+\end{document}
