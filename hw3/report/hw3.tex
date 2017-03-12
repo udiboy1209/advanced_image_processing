@@ -205,6 +205,24 @@ And therefore \ref{eq:15} directly follows from this.
 
 \subsection*{A1.16}
 Need to show:
+\begin{equation}
+  \label{eq:16}
+  \ltwo{\Phi\htzo}\ltwo{\Phi h} \le 2 \varepsilon \sqrt{1+\delta_{2s}}\ltwo{\htzo}
+\end{equation}
+We note that
+$$\ltwo{\Phi(x^* - x)} \le \ltwo{\Phi x^* - y} + \ltwo{y - \Phi x} \le 2\varepsilon$$
+The first part of the Inequality is a direct result of Traingle Inequality. The second part of the Inequality arises from the fact that
+$\ltwo{y - \Phi x} \le \varepsilon$ and both $x$ and $x^*$ are a solution.
+We have assumed $x^* = x + h$. Therefore
+$$\ltwo{\Phi h} \le 2\varepsilon$$
 
+Also from the definition of RIP
+$$\sqrt{(1 - \delta_{s})} \ltwo{x} \le \ltwo{\Phi x} \le \sqrt{(1+\delta_s)} \ltwo{x}$$
+where x is s-sparse vector.
+We know that $\htzo$ is a 2s-sparse vector. Therefore
+$$\ltwo{\Phi \htzo} \le \sqrt{(1+\delta_{2s})}\ltwo{\htzo}$$
+Multiplying the inequalities directly gives \ref{eq:16}
+$$\ltwo{\Phi\htzo}\ltwo{\Phi h} \le 2 \varepsilon \sqrt{1+\delta_{2s}}\ltwo{\htzo}$$
 
+\subsection*{A1.17}
 \end{document}
