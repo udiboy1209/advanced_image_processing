@@ -42,6 +42,13 @@
 \newcommand{\hto}[1]{
   h_{#1}
 }
+\newcommand{\htzo}{
+  h_{(T_0 \cup T_1)}
+}
+
+\newcommand{\htzoc}{
+  h_{(T_0 \cup T_1)^c}
+}
 
 \begin{document}
 \maketitle
@@ -83,7 +90,13 @@ for all $j \ge 2$
 Now summing over all $j \ge 2$ we get
 $$\sum_{j \ge 2} \ltwo{\htj{j}} \le s^{-1/2}(\lone{\htj{1}} + \lone{\htj{2}} + ...)$$
 
-\subsection*{A1.4}??
+\subsection*{A1.4}
+??
+Need to show:
+\begin{equation}
+  \label{eq:4}
+  s^{-1/2}(\lone{\htj{1}} + \lone{\htj{2}} + ...) \le s^{-1/2}\lone{\htc{T_0}}
+\end{equation}
 
 \subsection*{A1.5}
 Need to show:
@@ -116,8 +129,8 @@ Need to show:
   \sum_{j \ge 2} \ltwo{\htj{j}} \le s^{-1/2}\lone{\htc{T_0}}
 \end{equation}
 
-Same proof as A1.4
-
+This follows directly from \ref{eq:3} and \ref{eq:4}.
+$$\sum_{j \ge 2} \ltwo{\htj{j}} \le s^{-1/2}(\lone{\htj{1}} + \lone{\htj{2}} + ...) \le s^{-1/2}\lone{\htc{T_0}}$$
 \subsection*{A1.8}
 ???
 Need to show:
@@ -143,9 +156,55 @@ $$\lone{\htc{T_0}} \le \lone{x_{T_0^c}} + \lone{\hto{T_0}} + \lone{x_{T_0^c}} = 
 Need to show:
 \begin{equation}
   \label{eq:10}
-  
+  \ltwo{\htzoc} \le \ltwo{\hto{T_0}} + 2e_0, e_0 \equiv s^{-1/2}\ltwo{x - x_s}
 \end{equation}
 
+Combining \ref{eq:5} \ref{eq:6} and \ref{eq:7} we get
+$$\ltwo{\htzoc} = \ltwo{\sum_{j \ge 2}\htj{j}} \le \sum_{j \ge 2} \ltwo{\htj{j}} \le s^{-1/2}\lone{\htc{T_0}}$$
+From \ref{eq:9} we get
+$$s^{-1/2}\lone{\htc{T_0}} \le s^{-1/2}\lone{\hto{T_0}} + 2s^{-1/2}\lone{x_{T_0^c}}$$
+Also by definition
+$$\lone{x_{T_0^c}} = \lone{x - x_s}$$
+This implies
+$$s^{-1/2}\lone{\htc{T_0}} \le s^{-1/2}\lone{\hto{T_0}} + 2s^{-1/2}\lone{x - x_s}$$
+Therefore
+$$s^{-1/2}\lone{\htc{T_0}} \le s^{-1/2}\lone{\hto{T_0}} + 2e_0, e_0 \equiv s^{-1/2}\ltwo{x - x_s}$$
+Now we also note, for any s-sparse vector A
+$$\lone{A} = \sum_i|a_i| = \sum_i |a_i|*1 \le \sqrt{s}\sqrt{\sum_i a_i^2} = s^{1/2}\ltwo{A}$$
+and here we have used Cauchy Schwartz Inequality.
+That is
+$$s^{-1/2}\lone{A} \le \ltwo{A}$$
+Thus it follows that 
+$$s^{-1/2}\lone{\hto{T_0}} \le \ltwo{\hto{T_0}}$$
+And \ref{eq:10} directly follows
+$$\ltwo{\htzoc} \le \ltwo{\hto{T_0}} + 2e_0, e_0 \equiv s^{-1/2}\ltwo{x - x_s}$$
+
+\subsection*{A1.14}
+Need to show:
+\begin{equation}
+  \label{eq:14}
+  \Phi \htzo = \Phi h - \sum_{j \ge 2}\Phi \htj{j}
+\end{equation}
+We know
+$$\htzoc = h - \htzo =h - \hto{T_o} - \hto{T_1} = \sum_{j \ge 2}\htj{j}$$
+Rearranging the equation
+$$\htzo = h - \sum_{j \ge 2}\htj{j}$$
+Multiplying $\phi$ on both sides
+$$\Phi \htzo = \Phi h - \sum_{j \ge 2}\Phi \htj{j}$$
+
+\subsection*{A1.15}
+Need to show:
+\begin{equation}
+  \label{eq:15}
+  |<\Phi\htzo,\Phi h>| \le \ltwo{\Phi\htzo}\ltwo{\Phi h}
+\end{equation}
+
+This is simple application of Cauchy Schwartz Inequality which states that given two vectors $a$ and $b$
+$$<a,b> \le \ltwo{a}\ltwo{b}$$
+And therefore \ref{eq:15} directly follows from this.
+
+\subsection*{A1.16}
+Need to show:
 
 
 \end{document}
