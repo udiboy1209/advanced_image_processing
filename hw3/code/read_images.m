@@ -31,7 +31,7 @@ for i = 33:42
     im = double(rgb2gray(im));
     
     [M,N] = size(im);
-    numpatches = (M-8)*(N-8);
+    numpatches = floor(M/8)*floor(N/8);
     patch_vec = zeros(64,numpatches);
     l=1;
     

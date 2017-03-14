@@ -8,11 +8,11 @@ addpath ./ompbox10
 n = 64;
 m = 128;
 
-% sparsity of each example
-k = 5;
+% epsilon
+e = 1;
 
 params.data = examples;
-params.Tdata = k;
+params.Edata = e;
 params.dictsize = m;
 params.iternum = 30;
 params.memusage = 'high';
