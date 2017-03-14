@@ -1,7 +1,8 @@
-function [psi,phi_o, phi_d, normE] = design_cs_matrix()
-    psi = randn(64,128);
+function [phi_o, phi_d, normE] = design_cs_matrix(psi)
+    %psi = randn(64,128);
+    n = size(psi,1);
     m = 40;
-    phi_o = randn(m,64);
+    phi_o = randn(m,n);
     
     phi_cap = phi_o;
     
@@ -11,7 +12,7 @@ function [psi,phi_o, phi_d, normE] = design_cs_matrix()
     r = sum(lambda_vec ~= 0);
     
     tau_cap = phi_cap * V;
-%     normE = zeros(m,1);
+    normE = zeros(m,1);
 %     norm_initial = zeros(m,1);
     %tau_res = zeros(size(tau_cap));
     
@@ -28,7 +29,7 @@ function [psi,phi_o, phi_d, normE] = design_cs_matrix()
         norm_initial = norm(E(:));
 %         E_new = Ej - vj_new*vj_new';
         E_new = Ej - s(1,1)*u(:,1)*v(:,1)';
-        normE = norm(E_new(:));
+        normE(j) = norm(E_new(:), 'fro');
         tau_cap(j,ind) = vj_new(ind)./lambda_vec(ind);
     end
     phi_d = tau_cap * V';   

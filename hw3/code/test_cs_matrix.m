@@ -1,18 +1,17 @@
-% Q2.A testing designed CS matrix
+function [] = test_cs_matrix(psi, examples)
+% Q2 testing designed CS matrix
 
-[psi,phi_o,phi_d, normE] = design_cs_matrix();
+[phi_o,phi_d, normE] = design_cs_matrix(psi);
 
 figure, plot(normE);
 
 plot_off_diagonal(phi_o,psi);
 plot_off_diagonal(phi_d,psi);
 
-for i = 1:2000
-    rand_col_ind = randi(64,5,1);
-    rand_weight = rand(5,1);
-    psi_rand_cols = psi(:,rand_col_ind);
-    
-    xi = psi_rand_cols * rand_weight;
+num_ex = size(examples, 2);
+
+for i = 1:num_ex
+    xi = examples(:,i);
     
     y_o = phi_o*xi;
     y_d = phi_d*xi;
@@ -25,4 +24,6 @@ for i = 1:2000
     
     err_o = norm(x_o - xi,1);
     err_d = norm(x_d - xi,1);
+end
+
 end
