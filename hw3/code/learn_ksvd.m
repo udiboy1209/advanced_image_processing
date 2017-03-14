@@ -11,11 +11,15 @@ m = 128;
 % epsilon
 e = 1;
 
+% sparsity
+k = 5;
+
 params.data = examples;
-params.Edata = e;
+% params.Edata = e;
+params.Tdata = k;
 params.dictsize = m;
 params.iternum = 30;
-params.memusage = 'high';
+params.memusage = 'low';
 
 [Dksvd,g,err] = ksvd(params,'');
 
