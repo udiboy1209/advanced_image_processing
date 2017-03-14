@@ -1,0 +1,27 @@
+The algorithm we have implemented generates a CS matrix with arbitrary real values.
+There are multiple problems in the realisation of such a CS matrix
+
+\begin{enumerated}
+    \item{It is difficult to assign different magnitude of weights to each pixel.
+          The accuracy of the hardware will limit the real values to a few quantized 
+          levels and hence we will have to use a matrix which performs worse but
+          which can be created by the hardware.
+
+        In Hitomi camera, the CS matrix contained only 0s and 1s hence the 
+          hardware was a simple cardboard sheet with each pixel having a
+          hole(representating 1s) or no hole(representing 0s).
+          In our case, we will have to make holes with varying diameters to
+          assign different weight to each pixel. These diameters can be created only
+          to a certain degree of accuracy and hence we will have to reduce our
+          matrix to that accuracy. The error in these diameters will also be higher
+          than for a simple CS matrix with 1s and 0s.}
+
+
+    \item{The CS matrix we have created will require some way to capture negative
+    wieghted pixels also. This will require creating a separate hardware matrix
+    for positive  and negative values and capturing two compressed measurements
+    and subtracting them (The subtraction can be done either before measurement,
+    which doubles the amount of hardware used, or can be done after measurement
+    in software, which doubles the number of measurements hence reduces
+    compression of the setup).}
+\end{enumerated}
