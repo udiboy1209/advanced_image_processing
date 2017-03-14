@@ -331,13 +331,7 @@ Hence we have proved all the inequalities and can directly get \ref{eq:22}
 
 The given algorithm fails to outperform the original Phi Matrix. We have tried another (much simpler) algorithm which gives a much better reconstruction error. Here we show both the results.
 \subsection*{A2.1}
-The given Algorithm gives the following :
-
-\subsection*{A2.E}
-
-The CS matrix produced by the algorithm contains arbitrary real values.
-To realise such a matrix in hardware will have a lot of problems.
-
+The given Algorithm produces the following:
 
 
 \end{document}

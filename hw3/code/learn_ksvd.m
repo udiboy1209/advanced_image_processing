@@ -26,7 +26,7 @@ params.memusage = 'low';
 figure; plot(err); title('K-SVD error convergence');
 xlabel('Iteration'); ylabel('RMSE');
 
-printf('  Dictionary size: %d x %d', n, m);
+fprintf('  Dictionary size: %d x %d', n, m);
 
 rmpath ./ksvdbox13
 rmpath ./ompbox10

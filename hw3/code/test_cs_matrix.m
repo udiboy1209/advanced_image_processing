@@ -1,13 +1,15 @@
-function [] = test_cs_matrix(psi, examples)
+function [relError] = test_cs_matrix(psi, examples)
 % Q2 testing designed CS matrix
 addpath 'ompbox10'
 
 [phi_o,phi_d,normE] = design_cs_matrix(psi);
 
 figure, plot(normE), title('|E| plot');
-
-plot_off_diagonal(phi_o,psi);
-plot_off_diagonal(phi_d,psi);
+figure;
+plot_off_diagonal(phi_o,psi);hold on;
+plot_off_diagonal(phi_d,psi);title('Off Diag');
+legend('Original off Diag','New off Diag');
+hold off;
 
 D_o = normc(phi_o*psi);
 D_d = normc(phi_d*psi);
@@ -33,9 +35,9 @@ for i = 1:num_ex
     err_o = norm(x_o - xi,1);
     err_d = norm(x_d - xi,1);
     
-    relErr(i) = err_o/err_d;
+    relError(i) = err_d/err_o;
 end
 
-fprintf('Avg relative error: %f',mean(relError));
+fprintf('Avg relative error: %f\n',mean(relError(~isnan(relError))));
 rmpath 'ompbox10'
 end
