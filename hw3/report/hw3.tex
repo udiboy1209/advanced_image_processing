@@ -325,19 +325,132 @@ $$2\ltwo{\htzo} + 2e_0 \le 2(1-\rho)^{-1}(\alpha\varepsilon + (1+\rho)e_0)$$
 Hence we have proved all the inequalities and can directly get \ref{eq:22}
 
 \subsection*{A1.23}
+If we had $y = \Phi x + \eta$ where $\eta$ represents (bounded) impulse noise, one would want to solve the following problem:
+$min \|x\|_1$ such that
+$\|y - \Phi x\|_1 \leq \epsilon$
+where $\epsilon$ is suitably picked (a conservative bound is mR if R is the maximum value of the impulse). 
+What part of this proof do you think will need to modified to derive error bounds for this case?
 
-
+Soln:
+We note that the only place where we have used $\ltwo{y - \Phi x} \le \varepsilon$ is in \ref{eq:16}. And this arises from the Lemma 2.1 in the paper.
+We know that the triangle Inequality is followed by any p-norm matrix. Therefore
+$$\lone{\Phi(x^* - x)} \le \lone{\Phi x^* - y} + \lone{y - \Phi x} \le 2\varepsilon$$
+Also we know
+$$\ltwo{a} \le \lone{a}$$ for all vectors $a$.
+And therefore from \ref{eq:15} and \ref{eq:16}we can write it as
+$$|<\Phi\htzo,\Phi h>| \le \ltwo{\Phi\htzo}\ltwo{\Phi h} \le \ltwo{\Phi\htzo}\lone{\Phi h} \le 2 \varepsilon \sqrt{1+\delta_{2s}}\ltwo{\htzo}$$
+And the rest of the proof follows as is.
+\newpage
 \section*{Q2}
 
-The given algorithm fails to outperform the original Phi Matrix. We have tried another (much simpler) algorithm which gives a much better reconstruction error. Here we show both the results.
+The given algorithm fails to outperform the original $\Phi$ Matrix. We have tried another (much simpler) algorithm which gives a much better reconstruction error. Here we show both the results. We henceforth call the algorithm in the paper as Algo1 and our Algorithm as Algo2.
+
+A brief description of our algorithm :
+\begin{itemize}
+\item The $\Lambda$ that we get corresponds to the eigen values of the matrix $\Psi \Psi^{'}$.
+\item We are choosing $\Psi$ at random, and therefore $\Psi \Psi^{'}$ is almost surely full rank matrix, and hence $\Lambda$ is also full rank matrix.
+\item If the $\Phi$ matrix were to have $m=n$, then we would have $\Gamma = \Lambda^{-1/2}$ as an exact solution.
+\item If we were to take $\Gamma = \Lambda^{-1/2}$ and simply drop off the last few rows, to get the desired $m$, we get extremely good sensing matrix. This is further shown in our results.
+\end{itemize}
 \subsection*{A2.1}
 The given Algorithm gives the following :
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.5]{images/Histogram_actual_algo_off_diag}
+  \caption{Algo1 Off Diagonal Matrix Comparison}
+  \label{fig:1}
+\end{figure}
+
+The average relative error in Algo1 case is : 1.163337
+
+The Algo2 gives the following Histogram :
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.5]{images/Histogram_our_algo_off_diag}
+  \caption{Algo2 Off Diagonal Element Histogram}
+  \label{fig:2}
+\end{figure}
+The average relative error in Algo2 case is : 0.147862
+
+\subsection*{A2.2}
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.5]{images/Psi_columns_ksvd}
+  \caption \\The columns of the matrix $\psi$ rearranged as an image.
+  \label{fig:3}
+\end{figure}
+
+\subsection*{A2.3}
+The plots for Q2c part are as follows:
+For Algo1:
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.5]{images/q2c_actual_algo}
+  \caption{Algo1 plot Hist comparison}
+  \label{fig:4}
+\end{figure}
+The relative error in this case : 1.421040
+For Algo2
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.5]{images/q2c_lam_inv}
+  \caption{Algo2 plot Hist Comparison}
+  \label{fig:5}
+\end{figure}
+The relative error in this case: 0.161012
+
+\subsection*{A2.4}
+The plots for Q2d part are as follows:
+For Algo1:
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.5]{images/q2d_actual_algo}
+  \caption{Algo1 plot Hist comparison}
+  \label{fig:6}
+\end{figure}
+The relative error in this case : 1.395116
+
+For Algo2
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.5]{images/q2d_lam_inv}
+  \caption{Algo2 plot Hist Comparison}
+  \label{fig:7}
+\end{figure}
+The relative error in this case is 0.377541
 
 \subsection*{A2.E}
 
-The CS matrix produced by the algorithm contains arbitrary real values.
-To realise such a matrix in hardware will have a lot of problems.
+The algorithm we have implemented generates a CS matrix with arbitrary real values.
+There are multiple problems in the realisation of such a CS matrix
+
+\begin{itemize}
+    \item{It is difficult to assign different magnitude of weights to each pixel.
+          The accuracy of the hardware will limit the real values to a few quantized 
+          levels and hence we will have to use a matrix which performs worse but
+          which can be created by the hardware.
+
+        In Hitomi camera, the CS matrix contained only 0s and 1s hence the 
+          hardware was a simple cardboard sheet with each pixel having a
+          hole(representating 1s) or no hole(representing 0s).
+          In our case, we will have to make holes with varying diameters to
+          assign different weight to each pixel. These diameters can be created only
+          to a certain degree of accuracy and hence we will have to reduce our
+          matrix to that accuracy. The error in these diameters will also be higher
+          than for a simple CS matrix with 1s and 0s.}
 
 
+    \item{The CS matrix we have created will require some way to capture negative
+    wieghted pixels also. This will require creating a separate hardware matrix
+    for positive  and negative values and capturing two compressed measurements
+    and subtracting them (The subtraction can be done either before measurement,
+    which doubles the amount of hardware used, or can be done after measurement
+    in software, which doubles the number of measurements hence reduces
+    compression of the setup).}
+\end{itemize}
 
+
+\subsection*{Observations}
+We note that this algo is not giving us better results, in almost all cases it is giving us worse relative probability error ($\ge 1$)
+ which is an absurd result. Our algorithm on the other hand is giving much better relative error($~0.15$)
 \end{document}
