@@ -1,6 +1,7 @@
 function [W_fin,H_fin] = projected_grad_descent(Y,W_curr,H_curr)
     tic;
     step_size = 1e-6;
+%     step_size = 2;
     
     lambda = 1;
 %     cost_curr = cost_function(Y,W_curr,H_curr,lambda);
@@ -26,6 +27,7 @@ function [W_fin,H_fin] = projected_grad_descent(Y,W_curr,H_curr)
 %             if (abs(cost_new) < abs(cost_curr))
                 W_curr = W_new_temp;
                 H_curr = H_new_temp;
+%                 step_size = step_size*1.1;
                 step_size = step_size*1.1;
                 break;
             else

@@ -16,20 +16,24 @@ function [img_final] = get_final_image(img2,img_noisy,Y,W_f,H_f)
     end
     
     img_f = img_f./num_matrix;
+    img_f_ns = img_f;
     img_f = mat2gray(img_f);
     img_final = img_f;
     figure;
     imshow(img2,[]);
-    title('Original');
+    title('Original Image');
     figure;
-    imshow(img_noisy,[]);
+%     imshow(img_noisy,[]);
+    imshow(uint8(img_noisy));
     title('Poisson Noise');
     figure;
-    imshow(img_final,[]);
+%     imshow(img_final,[]);
+    imshow(uint8(img_f_ns));
     title('Final Image');
+
     
-    p_snr_denoised = psnr(img_f,img2);
+    p_snr_denoised = psnr(mat2gray(img_f),mat2gray(img2));
     fprintf('P_snr Denoised is %f\n',p_snr_denoised);
-    p_snr_noisy = psnr(img_noisy,img2);
+    p_snr_noisy = psnr(mat2gray(img_noisy),mat2gray(img2));
     fprintf('P_snr Noisy is %f\n',p_snr_noisy);
 end
