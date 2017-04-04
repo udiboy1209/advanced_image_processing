@@ -1,0 +1,20 @@
+Parameters:
+
+Initial step size: 1e-1
+lambda: 20
+Num iterations: 200
+
+Peak 30:
+
+PSNR_denoised = 18.097069 
+PSNR_noisy = 13.920
+
+Peak 60:
+
+PSNR_denoised = 20.161987
+PSNR_noisy = 16.825162
+
+Peak 100:
+
+PSNR_denoised = 20.295
+PSNR_noisy = 19.0929
