@@ -62,21 +62,59 @@ The given cost function is
   $$\frac{dE}{dw_{ab}} = \sum_{i=1}^N -\frac{y_{ai}}{(Wh_i)_a}(h_{bi}) + h_{bi} = \sum_{i=1}^N(1-\frac{y_{ai}}{(Wh_i)_a})h_{bi}$$
   We vectorize the equaiton for matlab as follows
   % $$ywh = Y./(WH)$$
-  $$[\nabla(W)] = (1 -Y./WH)H^{'}$$
+  $$[\nabla W] = (1 -Y./WH)H^{'}$$
 
 \item Gradient of H:\\
   We follow similar strategy to get the gradient of $H$. We differentiate the cost with respect to each of the elements of the matrix $H$. We denote the element at row $a$ and column $b$ by $h_{ab}$
   $$[\nabla H]_{ab} = \frac{dE}{dh_{ab}}$$
   $$\frac{dE}{dh_{ab}} = \frac{d}{dh_{ab}}(\sum_{i=1}^N\sum_{j=1}^n(-y_{ji}log(Wh_i)_j + (Wh_i)_j) + \lambda\sum_{k=1}^K\sum_{j=1}^Nh_{kj})$$
-  We consider the three terms separately. For the first term we will need to consider only the 
-  $$\frac{dE}{dh_{ab}} = $$
+  We consider the three terms separately. For the first term we will need to consider only the $b^{th}$ column of H. 
+  $$\frac{d}{dh_{ab}}\sum_{j=1}^n -y_{jb}log(\sum_{l=1}^KW_{jl}h_{lb}) = \sum_{j=1}^n-\frac{y_{jb}}{Wh_b}_jW_{ja}$$
+  For second term also we consider only $b^{th}$ column
+  $$\sum_{j=1}^n \frac{d}{dh_{ab}}\sum_{l=1}^KW_{jl}h_{lb} = \sum_{j=1}W_{ja}$$
+  The third term will simply be $\lambda$
+  Therefore
+  $$\frac{dE}{dh_{ab}} = (\sum_{j=1}^n-\frac{y_{jb}}{Wh_b}_jW_{ja} + W_{ja}) + \lambda$$
+  We vectorize the equation for matlab as follows
+  $$[\nabla H] = W'*(1 - Y./WH) + lambda$$
   
-  $$\frac{dE}{dh_{ab}}$$
   
 \end{itemize}
 
+\section*{Results}
 
+\textbf{Parameters:}\\
+\\
+$ \lambda = 20 $\\
+\\
+Initial step size = 0.1\\
+\\
+Iterations = 200\\
 
+\subsection*{Peak = 30}
+\includegraphics[scale=0.5]{images/peak30_orig}
+\includegraphics[scale=0.5]{images/peak30_noisy}
+\includegraphics[scale=0.5]{images/peak30_denoised}
+\\
+PSNR\textsubscript{denoised} = 18.097 dB\\
+\\
+PSNR\textsubscript{noisy} = 13.920 dB
 
+\subsection*{Peak = 60}
+\includegraphics[scale=0.5]{images/peak60_orig}
+\includegraphics[scale=0.5]{images/peak60_noisy}
+\includegraphics[scale=0.5]{images/peak60_denoised}
+\\
+PSNR\textsubscript{denoised} = 20.162 dB\\
+\\
+PSNR\textsubscript{noisy} = 16.825 dB
 
+\subsection*{Peak = 100}
+\includegraphics[scale=0.5]{images/peak100_orig}
+\includegraphics[scale=0.5]{images/peak100_noisy}
+\includegraphics[scale=0.5]{images/peak100_denoised}
+\\
+PSNR\textsubscript{denoised} = 20.295 dB\\
+\\
+PSNR\textsubscript{noisy} = 19.093 dB
 \end{document}
