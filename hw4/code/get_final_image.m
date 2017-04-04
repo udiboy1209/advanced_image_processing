@@ -17,10 +17,10 @@ function [img_final] = get_final_image(img2,img_noisy,Y,W_f,H_f)
     
     img_f = img_f./num_matrix;
     img_f_ns = img_f;
-    img_f = mat2gray(img_f);
+%     img_f = mat2gray(img_f);
     img_final = img_f;
     figure;
-    imshow(img2,[]);
+    imshow(uint8(img2));
     title('Original Image');
     figure;
 %     imshow(img_noisy,[]);
