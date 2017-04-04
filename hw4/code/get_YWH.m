@@ -12,8 +12,9 @@ function [Y,W,H,img2,img_noisy] = get_YWH()
     Y = zeros(n,N);
 %     img2 = img1/max(max(img1));
     img2 = mat2gray(img1);
-%     img2 = 100*img2;
-    img2 = 30*img2;
+
+%     img2 = 30*img2;
+    img2 = 60*img2;
     img_noisy = poissrnd(img2);
 %     img_noisy = 100*mat2gray(img_noisy);
     Ni = 0;
@@ -33,7 +34,7 @@ function [Y,W,H,img2,img_noisy] = get_YWH()
     W = rand(n,K);
     W(W < 0) = 0;
     W = normc(W);
-    H = 0.1*rand(K,N);
+    H = rand(K,N);
     H(H < 0) = 0;
     
     fprintf('get_YWH done\n');

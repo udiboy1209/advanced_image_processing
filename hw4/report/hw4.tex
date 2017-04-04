@@ -35,6 +35,48 @@
 \begin{document}
 \maketitle
 \section*{Q1}
-\subsection*{A1.1}
+\subsection*{A1.1 Derivatives for Calculation of Gradient Descent}
+The given cost function is
+\begin{equation}
+  \label{eq:1}
+  E(W,{h_i}) = \sum_{i=1}^N\sum_{j=1}^n(-y_{ji}log(Wh_i)_j + (Wh_i)_j) + \lambda\sum_{k=1}^K\sum_{j=1}^Nh_{kj}
+\end{equation}
+
+\begin{itemize}
+\item Gradient of W:\\
+  We note to get the gradient of a matrix, we need to differentiate with respect to every element of the matrix. The gradient matrix will simply be derivative to of the cost function with respect to the correspoding element of $W$.
+
+  Let us consider the derivative with respect to the $a^{th}$ row and $b^{th}$ column denoted by $w_{ab}$.
+  $$[\nabla W]_{ab} = \frac{dE}{dw_{ab}}$$
+  $$\frac{dE}{dw_{ab}} = \frac{d}{dw_{ab}}(\sum_{i=1}^N\sum_{j=1}^n(-y_{ji}log(Wh_i)_j + (Wh_i)_j) + \lambda\sum_{k=1}^K\sum_{j=1}^Nh_{kj})$$
+  We note that
+  $$(Wh_i)_j = \sum_{l=1}^KW_{jl}h_{li}$$
+  Clearly the last term of the cost function is not dependent on $W$ and hence goes to zero. For the first term we need to consider only the $a^{th}$ row
+  $$\frac{dE}{dw_{ab}} = \frac{d}{dw_{ab}}(\sum_{i=1}^N(-y_{ai}log(Wh_i)_a + (Wh_i)_a)$$
+  Consider the first term
+  $$\frac{d}{dw_{ab}}\sum_{i=1}^N(-y_{ai}log(Wh_i)_a) = \sum_{i=1}^N \frac{d}{dw_{ab}}(-y_{ai}log(\sum_{l=1}^KW_{al}h_{li})) =
+  \sum_{i=1}^N -\frac{y_{ai}}{(Wh_i)_a}(h_{bi})$$
+  Now consider the second term
+  $$\frac{d}{dw_{ab}}\sum_{i=1}^N(Wh_i)_a = \sum_{i=1}^N h_{bi}$$
+  Therefore
+  $$\frac{dE}{dw_{ab}} = \sum_{i=1}^N -\frac{y_{ai}}{(Wh_i)_a}(h_{bi}) + h_{bi} = \sum_{i=1}^N(1-\frac{y_{ai}}{(Wh_i)_a})h_{bi}$$
+  We vectorize the equaiton for matlab as follows
+  % $$ywh = Y./(WH)$$
+  $$[\nabla(W)] = (1 -Y./WH)H^{'}$$
+
+\item Gradient of H:\\
+  We follow similar strategy to get the gradient of $H$. We differentiate the cost with respect to each of the elements of the matrix $H$. We denote the element at row $a$ and column $b$ by $h_{ab}$
+  $$[\nabla H]_{ab} = \frac{dE}{dh_{ab}}$$
+  $$\frac{dE}{dh_{ab}} = \frac{d}{dh_{ab}}(\sum_{i=1}^N\sum_{j=1}^n(-y_{ji}log(Wh_i)_j + (Wh_i)_j) + \lambda\sum_{k=1}^K\sum_{j=1}^Nh_{kj})$$
+  We consider the three terms separately. For the first term we will need to consider only the 
+  $$\frac{dE}{dh_{ab}} = $$
+  
+  $$\frac{dE}{dh_{ab}}$$
+  
+\end{itemize}
+
+
+
+
 
 \end{document}

@@ -1,4 +1,4 @@
-function [img_final] = get_final_image(img2,img_noisy,Y,W_f,H_f)
+function [img_final,img_f_ns] = get_final_image(img2,img_noisy,Y,W_f,H_f)
     X_new = W_f*H_f;
     [m1,n1] = size(img2);
     patch_size = 7;
@@ -30,10 +30,11 @@ function [img_final] = get_final_image(img2,img_noisy,Y,W_f,H_f)
 %     imshow(img_final,[]);
     imshow(uint8(img_f_ns));
     title('Final Image');
-
+    
+    p_snr_noisy = psnr(mat2gray(img_noisy),mat2gray(img2));
+    fprintf('P_snr Noisy is %f\n',p_snr_noisy);
     
     p_snr_denoised = psnr(mat2gray(img_f),mat2gray(img2));
     fprintf('P_snr Denoised is %f\n',p_snr_denoised);
-    p_snr_noisy = psnr(mat2gray(img_noisy),mat2gray(img2));
-    fprintf('P_snr Noisy is %f\n',p_snr_noisy);
+
 end
