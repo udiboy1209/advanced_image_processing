@@ -24,11 +24,11 @@ RU_1_t = RU_mat_t(M,N,angles_1);
 RU_2 = RU_mat(M,N,angles_2);
 RU_2_t = RU_mat_t(M,N,angles_2);
 
-[cs_img1,cs_stat_1] = l1_ls(RU_1,RU_1_t,length(R_1_vec),M*N,R_1_vec,lambda,0.01);
-[cs_img2,cs_stat_2] = l1_ls(RU_2,RU_2_t,length(R_2_vec),M*N,R_2_vec,lambda,0.01);
+[cs_img1,cs_stat_1] = l1_ls(RU_1,RU_1_t,length(R_1_vec),M*N,R_1_vec,lambda,100);
+[cs_img2,cs_stat_2] = l1_ls(RU_2,RU_2_t,length(R_2_vec),M*N,R_2_vec,lambda,100);
 
 img1_r = dct2(reshape(cs_img1,M,N));
 img2_r = dct2(reshape(cs_img2,M,N));
 
-figure, imshow(img1_r);
-figure, imshow(img2_r);
+figure, imshow(uint8(img1_r));
+figure, imshow(uint8(img2_r));

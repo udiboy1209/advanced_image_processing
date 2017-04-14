@@ -17,7 +17,7 @@ classdef RU_mat_t
             % Assuming m1 is RU object and m2 is the image matrix
             [a,~] = size(m2);
             tom = reshape(m2,a/RU.num_angles,RU.num_angles);
-            idct = iradon(tom,RU.angles,'linear','none',1,RU.M);
+            idct = iradon(tom,RU.angles,'linear','Ram-Lak',1,RU.M);
             m = dct2(idct);
             m = reshape(m, RU.M*RU.N, 1);
         end
