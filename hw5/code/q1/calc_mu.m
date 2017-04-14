@@ -1,4 +1,4 @@
-U = kron(dctmtx(32)',dctmtx(32)')';
+U = kron(dctmtx(32)',dctmtx(32)');
 RU = zeros(49*15,1024);
 
 for m = 1:1024
