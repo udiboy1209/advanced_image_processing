@@ -9,15 +9,8 @@ for m = 1:1024
 end
 
 RU = normc(RU);
-coh = zeros(1024*1023/2,1);
-k = 1;
+C = abs(RU'*RU);
+offdiag_idx = logical(1-eye(1024));
 
-for i = 1:1024
-    for j = i+1:1024
-        coh(k) = abs(RU(:,i)'*RU(:,j));
-        k = k + 1;
-    end
-end
-
-mu = max(coh);
-histogram(coh);
+mu = max(max(C(offdiag_idx)))
+histogram(C(offdiag_idx));

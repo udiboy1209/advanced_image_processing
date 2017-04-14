@@ -16,7 +16,8 @@
 
 \setlength{\parindent}{0pt}
 
-\title{CS 754 : Advanced Image ProcessingAssignment 5}
+\title{CS 754 : Advanced Image Processing\\
+Assignment 5}
 \author{Meet Udeshi - 14D070007\\
   Arka Sadhu - 140070011\\
 }
@@ -38,6 +39,15 @@
 \begin{document}
 \maketitle
 \section*{Q1}
+
+\textbf{Mutual Coherence:}
+
+\[ \mu = 0.996815820660457 \]
+
+\textbf{Histogram of Coherence Values:}
+
+\includegraphics[scale=0.5]{coherence_hist.png}
+
 \section*{Q2}
 \subsection*{A2.1}
 Need to show Shift Theorem:
@@ -80,7 +90,7 @@ Let $$h(x,y) = \dbint f(x_1,y_1)g(x - x_1,y - y_1)dx_1dy_1$$
 $$Rh = \dbint\dbint f(x_1,y_1)g(x-x_1,y-y_1)\delta(\rho - xcos(\theta) - ysin(\theta))dx_1dy_1dxdy$$
 $$Rh = \dbint \dbint R(g)(\rho - x_1cos(\theta) - y_1sin(\theta),\theta) dx_1dy_1$$
 
-$$Rh = \dbint \int_{infty}^{infty}f(x_1,y_1)R(g(\rho-\rho_1,\theta)\delta(\rho_1 - x_1cos(\theta) - y_1sin(\theta))dx_1dy_1d\rho_1$$
-$$Rh = \int_{\infty}^{infty}R(f)(\rho_1,\theta)R(g))(\rho - \rho_1,\theta)d\rho_1$$
+$$Rh = \dbint \int_{\infty}^{\infty}f(x_1,y_1)R(g(\rho-\rho_1,\theta)\delta(\rho_1 - x_1cos(\theta) - y_1sin(\theta))dx_1dy_1d\rho_1$$
+$$Rh = \int_{\infty}^{\infty}R(f)(\rho_1,\theta)R(g))(\rho - \rho_1,\theta)d\rho_1$$
 $$Rh = Rf * Rg$$
 \end{document}
