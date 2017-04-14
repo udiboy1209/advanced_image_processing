@@ -88,9 +88,116 @@ Let $$h(x,y) = \dbint f(x_1,y_1)g(x - x_1,y - y_1)dx_1dy_1$$
   Rh = Rf * Rg
 \end{equation}
 $$Rh = \dbint\dbint f(x_1,y_1)g(x-x_1,y-y_1)\delta(\rho - xcos(\theta) - ysin(\theta))dx_1dy_1dxdy$$
-$$Rh = \dbint \dbint R(g)(\rho - x_1cos(\theta) - y_1sin(\theta),\theta) dx_1dy_1$$
+$$Rh = \dbint f(x_1,y_1)R(g)(\rho - x_1cos(\theta) - y_1sin(\theta),\theta) dx_1dy_1$$
 
-$$Rh = \dbint \int_{\infty}^{\infty}f(x_1,y_1)R(g(\rho-\rho_1,\theta)\delta(\rho_1 - x_1cos(\theta) - y_1sin(\theta))dx_1dy_1d\rho_1$$
+$$Rh = \dbint \int_{\infty}^{\infty}f(x_1,y_1)R(g)(\rho-\rho_1,\theta)\delta(\rho_1 - x_1cos(\theta) - y_1sin(\theta))dx_1dy_1d\rho_1$$
 $$Rh = \int_{\infty}^{\infty}R(f)(\rho_1,\theta)R(g))(\rho - \rho_1,\theta)d\rho_1$$
 $$Rh = Rf * Rg$$
+
+\section*{Q3}
+We have taken Radon Transform at 18 randomly selected angles in all 3 parts, for both of the images.
+\subsection*{A3.1}
+Filtered Back Projection using the Ram-Lak Projection:
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.5]{images/fil_b_1}
+  \caption{Filtered Back Projection Img1}
+  \label{fig:1}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.5]{images/fil_b_2}
+  \caption{Filtered Back Projection Img2}
+  \label{fig:1}
+\end{figure}
+
+\subsection*{A3.2}
+Compressed Sensing Decoupled Tomographic Reconstruction
+For the l1\_ls solver the parameters used were :
+$\lambda = 0.01$
+$rel \textunderscore tol = 100$
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.5]{images/cs_decoupled_1}
+  \caption{Decoupled Compressed Sensing Tomographic Reconstruction Img1}
+  \label{fig:3}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.5]{images/cs_decoupled_2}
+  \caption{Decoupled Compressed Sensing Tomographic Reconstruction Img2}
+  \label{fig:4}
+\end{figure}
+
+\subsection*{A3.3}
+Compressed Sensing Coupled Tomographic Reconstruction
+For the l1\_ls solver the parameters used were :
+$\lambda = 0.01$
+$rel\textunderscore tol = 100$
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.5]{images/cs_coupled_1}
+  \caption{Coupled Compressed Sensing Tomographic Reconstruction Img1}
+  \label{fig:3}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[scale=0.5]{images/cs_coupled_2}
+  \caption{Coupled Compressed Sensing Tomographic Reconstruction Img2}
+  \label{fig:4}
+\end{figure}
+\subsection*{A3.4}
+Modified Objective function for the case of 3 slices
+We consider $$\theta_2 = \theta_1 + \Delta\theta_2$$ and $$\theta_3 = \theta_1 + \Delta \theta_2 + \Delta \theta_3$$
+And $\hat{W}$ is the basis in which the image is sparse.
+
+\begin{equation}
+  \label{eq:2}
+  % \min_{\hat{\theta}_{t,k}} \ltwo{\hat{y_t} - \hat{R_{t,k}}\hat{U_k}\hat{\theta_{t,k}}}^2 + \lambda\lone{\hat{\theta_{t,k}}}
+  \min_{\hat{\theta}} \ltwo{y_t - R_t \hat{W} \hat{\theta}}
+\end{equation}
+With
+\begin{align}
+  \label{eq:3}
+  \hat{y_t} &=
+              \begin{bmatrix}
+                y_1\\
+                y_2\\
+                y_3
+              \end{bmatrix}
+\end{align}
+
+\[
+  R_t =
+  \begin{bmatrix}
+    R_{1} & & \\
+    & R_{2} & \\
+    & & R_{3}
+  \end{bmatrix}
+\]
+
+\[
+  \hat{W} =
+  \begin{bmatrix}
+    W & & \\
+    W & W & \\
+    W & W & W
+  \end{bmatrix}
+\]
+
+
+\begin{align}
+  \label{eq:3}
+  \hat{\theta_t} &=
+              \begin{bmatrix}
+                \theta_1\\
+                \Delta \theta_2\\
+                \Delta \theta_3
+              \end{bmatrix}
+\end{align}
+
+
+
+
+
 \end{document}

@@ -15,8 +15,8 @@ classdef RU_mat
         end
         function m = mtimes(RU,m2)
             % Assuming m1 is RU object and m2 is the image matrix
-            dct = reshape(m2,RU.M,RU.N);
-            im = idct2(dct);
+            dct_img = reshape(m2,RU.M,RU.N);
+            im = idct2(dct_img);
             tom = radon(im,RU.angles);
             tom_len = size(tom,1);
             m = reshape(tom, tom_len*RU.num_angles, 1);
