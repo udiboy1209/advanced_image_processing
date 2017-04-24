@@ -1,4 +1,6 @@
-function [u1_out,u2_out,I_out] = parse_video_dataset(fileformat,start_idx,end_idx,color, patch_x, patch_y)
+function [mean_img,mean_diff_img,var,M,N] = parse_video_dataset2(fileformat,start_idx,end_idx,color)
+
+
 
 img_start = double(imread(sprintf(fileformat,start_idx)));
 img_end = double(imread(sprintf(fileformat,end_idx)));
@@ -19,25 +21,28 @@ for i = start_idx:end_idx
     prev_img = img(:,:,color);
     
     mean_img = mean_img+prev_img;
+    fprintf('Iter %d\n',i);
 end
 
 var = var./(end_idx-start_idx);
 mean_img = mean_img./(end_idx-start_idx+1);
 
-selection = zeros(M,N);
-selection = logical(selection ~= 0);
-selection(patch_x,patch_y) = 1;
-selection(mean_img>240) = 0;
-
-figure,scatter(mean_img(selection),mean_diff_img(selection),'.'), title('\mu vs. Intensity');
-figure,scatter(mean_img(selection),var(selection),'.'), title('\sigma^2 vs. Intensity');
-
-u1 = (mean_diff_img  + var)/2;
-u2 = (-mean_diff_img + var)/2;
-
-u1_out = u1(selection);
-u2_out = u2(selection);
-I_out = mean_img(selection);
+% selection = zeros(M,N,'logical');
+% selection = zeros(M,N);
+% selection = logical(selection ~= 0);
+% 
+% selection(patch_x,patch_y) = 1;
+% selection(mean_img>240) = 0;
+% 
+% figure,scatter(mean_img(selection),mean_diff_img(selection),'.'), title('\mu vs. Intensity');
+% figure,scatter(mean_img(selection),var(selection),'.'), title('\sigma^2 vs. Intensity');
+% 
+% u1 = (mean_diff_img  + var)/2;
+% u2 = (-mean_diff_img + var)/2;
+% 
+% u1_out = u1(selection);
+% u2_out = u2(selection);
+% I_out = mean_img(selection);
 
 %figure,scatter(mean_img(selection),u1(selection),'.'), title('\mu^{(1)} vs. Intensity');
 %figure,scatter(mean_img(selection),u2(selection),'.'), title('\mu^{(2)} vs. Intensity');

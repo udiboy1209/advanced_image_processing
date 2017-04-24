@@ -1,7 +1,7 @@
-function [mu_s, sigma_s ] = plot_difference_hist( filename )
+function [mu_s, sigma_s ] = plot_difference_hist( img )
 %PLOT_DIFFERENCE_HIST Summary of this function goes here
 %   Detailed explanation goes here
-img = mat2gray(double(imread(filename)));
+% img = mat2gray(double(imread(filename)));
 
 [M, N] = size(img);
 

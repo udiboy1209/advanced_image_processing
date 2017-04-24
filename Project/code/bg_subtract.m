@@ -1,4 +1,4 @@
-dataset_format = 'datasets/junction_dataset/image_00/data/%.10d.png';
+dataset_format = '../data/junction_dataset/image_00/data/%.10d.png';
 si = 0;
 ei = 83;
 color = 1;
