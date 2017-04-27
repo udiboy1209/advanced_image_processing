@@ -17,7 +17,7 @@ selection = zeros(M,N);
 selection = logical(selection ~= 0);
 
 selection(patch_x,patch_y) = 1;
-selection(img_start(:,:,colors)>240) = 0;
+selection(sum(img_start(:,:,colors)>240,3) > 0) = 0;
 
 num_elems = sum(sum(selection));
 

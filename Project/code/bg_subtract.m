@@ -18,7 +18,7 @@ img_bg = double(imread(sprintf(data_dir,1)));
 % img_bg = img_bg(:,:,1);
 
 % figure;
-for im = 400:400
+for im = 400:700
     img1 = double(imread(sprintf(data_dir,im)));
 %     img1 = img1(:,:,color);
 

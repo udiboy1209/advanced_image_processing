@@ -1,6 +1,6 @@
 dark_ratio = 1;
 synth_img = create_synth_dataset();
-synth_img = imresize(synth_img,1/4);
+synth_img = synth_img(1:4:end,1:4:end,:);%imresize(synth_img,1/4);
 synth_img = synth_img/dark_ratio;
 
 data_dir = 'datasets/dataset_cannon/synth_bg_sub/img%d.png';
@@ -13,7 +13,7 @@ height = 20;
 [M,N,C] = size(synth_img);
 
 frame_count = 20;
-for iter = 1:5000
+for iter = 1:2000
 %     poisson_synth_img = poissrnd(synth_img); 
     synth_img2 = synth_img;
     
