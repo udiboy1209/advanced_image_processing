@@ -1,4 +1,8 @@
-function [u1_out,u2_out,I_out] = parse_video_dataset(fileformat,start_idx,end_idx,color, patch_x, patch_y)
+function [u1_out,u2_out,I_out] = parse_video_dataset(fileformat,start_idx,end_idx,color, patch_x, patch_y,arg1)
+if (nargin == 6)
+    arg1 = 'patch';
+end
+
 
 img_start = double(imread(sprintf(fileformat,start_idx)));
 img_end = double(imread(sprintf(fileformat,end_idx)));
@@ -11,6 +15,11 @@ prev_img = img_start(:,:,color);
 [M,N] = size(prev_img);
 var = size(M,N);
 
+if(strcmp(arg1,'full'))
+    patch_x = 1:M;
+    patch_y = 1:N;
+end
+
 for i = start_idx:end_idx
     impath = sprintf(fileformat,i);
     img = double(imread(impath));
@@ -19,6 +28,7 @@ for i = start_idx:end_idx
     prev_img = img(:,:,color);
     
     mean_img = mean_img+prev_img;
+    fprintf('Iter %d\n',i - start_idx + 1);
 end
 
 var = var./(end_idx-start_idx);
