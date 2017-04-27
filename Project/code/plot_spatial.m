@@ -1,27 +1,36 @@
-% img3 = imread('../data/canon_images_stable/3.png');
-img3 = imread('../data/yas_background_modelling_GroundtruthSeq/RawImages');
-[m,n,p] = size(img3);
-%%Trying for img3 to img 26
-mu_s = 0;
-sigma_s2 = 0;
-n=0;
-rows = 135:183;
-cols = 115:160;
-img4 = img3(rows,cols);
-[m1,n1] = size(img4);
-for row=1:m1-1
-    for col=1:n1-1
-        mu_s = mu_s + img4(row,col) - img4(row+1,col+1); 
-        n = n +1;
-    end
-end
-mu_s = mu_s/n;
-for row=1:m1-1
-    for col =1:n1-1
-        sigma_s2 = sigma_s2 + (mu_s - (img4(row,col) - img4(row+1,col+1)))^2;
-    end
+close all;
+img_spatial = imread('/media/arktheshadow/Windows/dataset_cannon/synth_10k_dark_slope_change/img1.png');
+color = 1;
+img_spatial = img_spatial(:,:,color);
+img_spatial = double(img_spatial);
+mean_vals = [];
+sigma_s2_vals = [];
+u1_vals = [];
+u2_vals = [];
+I_vals = [];
+for i=0:23
+    img_input = img_spatial( floor(i/6) * 30 + 1: (floor(i/6) + 1)*30, mod(i,6)*30 + 1: (mod(i,6)+1) * 30);
+    [mean_s] = get_mean_s(img_input);
+    [u1_val,u2_val,I_val,sigma_s2] = get_uI(img_input,mean_s);
+    mean_vals = [mean_vals mean_s];
+    sigma_s2_vals = [sigma_s2_vals sigma_s2];
+    u1_vals = [u1_vals u1_val];
+    u2_vals = [u2_vals u2_val];
+    I_vals = [I_vals I_val];
 end
 
-sigma_s2 = sigma_s2/(n-1);
 
-mu_1 = (mu_s + sigma_s2)/2;
+lim_y = 10;
+lim_x = 255;
+figure;scatter(I_vals, mean_vals,'.'),title('\sigma^2 vs Intensity');
+xlim([0 lim_x]);
+ylim([0 lim_y]);
+figure;scatter(I_vals, sigma_s2_vals,'.'),title('\mu vs Intensity');
+xlim([0 lim_x]);
+ylim([0 lim_y]);
+figure;scatter(I_vals, u1_vals,'.'),title('\mu^{(1)} vs Intensity');
+xlim([0 lim_x]);
+ylim([0 lim_y]);
+figure;scatter(I_vals, u2_vals,'.'),title('\mu^{(2)} vs Intensity');
+xlim([0 lim_x]);
+ylim([0 lim_y]);
