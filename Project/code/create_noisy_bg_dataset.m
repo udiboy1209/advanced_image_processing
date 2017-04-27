@@ -3,16 +3,30 @@ synth_img = create_synth_dataset();
 synth_img = imresize(synth_img,1/4);
 synth_img = synth_img/dark_ratio;
 
-data_dir = '/media/arktheshadow/Windows/dataset_cannon/synth_bg_sub/img%d.png';
+data_dir = 'datasets/dataset_cannon/synth_bg_sub/img%d.png';
 
 a = 255/dark_ratio;
 scale = 1/50;
 width = 10;
-for iter = 1:1000
+height = 20;
+
+[M,N,C] = size(synth_img);
+
+frame_count = 20;
+for iter = 1:5000
 %     poisson_synth_img = poissrnd(synth_img); 
     synth_img2 = synth_img;
-    if (iter > 150 && iter < 168)
-        synth_img2(20:40,(iter-150)*width + 1 : (iter-150 + 1)*width,:) = 5;
+    
+    if (iter >= 450 && iter <= 650)
+        y = ((iter-450)/frame_count);
+        y = floor(M*frame_count*y/200);
+
+        x = mod((iter-450),frame_count);
+        x = floor(N*x/frame_count);
+        
+        synth_img2(y+1:min(y+height,M),x+1:min(x+width,N),1) = y*100/M;
+        synth_img2(y+1:min(y+height,M),x+1:min(x+width,N),2) = 100-y*100/M;
+        synth_img2(y+1:min(y+height,M),x+1:min(x+width,N),3) = y*100/M;
     end
 
 %     poisson_synth_img = synth_img2;
