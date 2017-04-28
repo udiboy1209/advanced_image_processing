@@ -32,31 +32,41 @@ figure,
 for c = 1:colors
     if c == 1
         col = '.r';
+        lcol = '--m';
     elseif c == 2
         col = '.g';
+        lcol = '--y';
     else
         col = '.b';
+        lcol = '--c';
     end
     
     scatter(I(:,c),u1(:,c),col); hold on;
-    plot([0 255],[c1(c) 255*m1(c)+c1(c)],'k'); %legend('Data','RANSAC');  
+    plot([0 255],[c1(c) 255*m1(c)+c1(c)],lcol); 
 end
-hold off; title('\mu^{(1)} vs. Intensity');
+hold off;
+title('\mu^{(1)} vs. Intensity');
+legend('R channel data', 'R channel fit', 'G channel data', 'G channel fit', 'B channel data', 'B channel fit');
 
 figure,
 for c = 1:colors
     if c == 1
         col = '.r';
+        lcol = '--m';
     elseif c == 2
         col = '.g';
+        lcol = '--y';
     else
         col = '.b';
+        lcol = '--c';
     end
     
     scatter(I(:,c),u2(:,c),col); hold on;
-    plot([0 255],[c2(c) 255*m2(c)+c2(c)],'k'); %legend('Data','RANSAC');  
+    plot([0 255],[c2(c) 255*m2(c)+c2(c)],lcol);   
 end
-hold off; title('\mu^{(2)} vs. Intensity');
+hold off;
+title('\mu^{(2)} vs. Intensity');
+legend('R channel data', 'R channel fit', 'G channel data', 'G channel fit', 'B channel data', 'B channel fit');
 
 
 rmpath ./Robust
