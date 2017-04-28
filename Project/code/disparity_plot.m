@@ -9,7 +9,7 @@ u1r = zeros(1,6);
 u1g = zeros(1,6);
 u1b = zeros(1,6);
 
-for disp = 1:6
+for disp = 1:10
     [mu,var,I] = get_mu_s(patch,disp,2);
     u1 = (mu+var)/2;
     u2 = (-mu+var)/2;
@@ -20,6 +20,6 @@ for disp = 1:6
 end
 
 figure;
-plot(1:6,u1r,'-xr'); hold on;
-plot(1:6,u1g,'-xg');
-plot(1:6,u1b,'-xb'); hold off;
+plot(1:10,u1r,'-xr'); hold on;
+plot(1:10,u1g,'-xg');
+plot(1:10,u1b,'-xb'); hold off;
